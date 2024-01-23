@@ -1,0 +1,13 @@
+.prof{
+    float: left;
+    background-color: red;
+}
+.last{
+    justify-content: flex-end;
+}
+.ctn{
+    justify-content: center;
+  align-items: center;
+  margin-left: 50%;
+  margin-top: 5em;
+}

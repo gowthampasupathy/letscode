@@ -1,0 +1,149 @@
+.nav{
+    background-color: #28282B;
+    color: white;
+}
+.ro{
+    display: flex;
+    width: 95.7rem;
+    height: 650px;
+    background-color:  #28282B;
+
+}
+.img{
+    margin-top: 10%;
+    display: flex;
+    width: 85%;
+    height: 500px;
+    border-radius: 6px;
+}
+.frst{
+    display: flex;
+    width: auto;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20%;
+    color: white;
+    text-align: start;
+
+}
+.txt1{
+    text-align: start;
+    font-weight: bolder;
+    letter-spacing: 5px;
+    color: white;
+    font-size: 70px;
+    
+}
+.txt2{
+    margin-top: 5%;
+    text-align: start;
+    font-weight: 70px;
+    color: white;
+    
+}
+.button {
+    margin-top: 5%;
+    position: relative;
+    background-color: transparent;
+    color: #e8e8e8;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 10px;
+    width: 170px;
+    height: 60px;
+    border: none;
+    
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button::before {
+    content: "Hello Coder !!";
+    color: #28282B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: orange;
+    transform: translate(0%,90%);
+    z-index: 99;
+    position: relative;
+    transform-origin: bottom;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button::after {
+    content: "Create Account";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform-origin: top;
+    transform: translate(0%,-100%);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .button:hover::before {
+    transform: translate(0%,0%);
+  }
+  
+  .button:hover::after {
+    transform: translate(0%,-200%);
+  }
+  
+  .button:focus {
+    outline: none;
+  }
+  
+  .button:active {
+    scale: 0.95;
+  }
+  .sec{
+    display: flex;
+    width: 100%;
+    height: 300px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 50px;
+
+  }
+  .con{
+    padding: 2%;
+    font-weight: 100px;
+  }
+  .third{
+    display: flex;
+    width: auto;
+    height: auto;
+    background-color: #28282B;
+    padding: 3%;
+    color: white;
+
+  }
+  .img2{
+    width: 100%;
+    height: 400px;
+
+  }
+  .last{
+    display: flex;
+    width: auto;
+    height: auto;
+    background-color:  #28282B;
+    padding: 3%;
+    color: white;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3%;
+
+  }

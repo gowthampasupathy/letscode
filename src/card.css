@@ -1,0 +1,35 @@
+.card1 {
+  display: block;
+  top: 0px;
+  position: relative;
+  background-color: orange;
+  border-radius: 4px;
+
+  text-decoration: none;
+  z-index: 0;
+  overflow: hidden;
+  border: 1px solid #f2f8f9;
+}
+.card1:hover {
+  background: #309df000;
+  color: #fff;
+  transform: scale(1);
+  z-index: 9;
+}
+
+.card1:before {
+  content: "";
+  position: absolute;
+  background: rgb(85 108 214 / 5%);
+  width: 170px;
+  height: 400px;
+  z-index: -1;
+  transform: rotate(42deg);
+  right: -56px;
+  top: -23px;
+  border-radius: 35px;
+}
+
+.card1:hover:before {
+  transform: scale(2.15);
+}
