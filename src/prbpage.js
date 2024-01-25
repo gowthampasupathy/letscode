@@ -1,5 +1,6 @@
 import Container from "react-bootstrap/Container";
 import "./main.css";
+import "./prbpage.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import React, { Component } from "react";
@@ -7,6 +8,8 @@ import Navi from './nav'
 import lan from "./langdata";
 import Editor from "@monaco-editor/react";
 import Accordion from 'react-bootstrap/Accordion';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 
 
 export default class Compiler extends Component {
@@ -15,10 +18,11 @@ export default class Compiler extends Component {
     this.state = {
       input: localStorage.getItem("input") || ``,
       output: localStorage.getItem("output") || ``,
-      language_id: localStorage.getItem("language_Id") || 50,
+      language_id: localStorage.getItem("language_Id") || ``,
       user_input: ``,
-      lang:localStorage.getItem("lang") || `c_cpp`,
+      lang:localStorage.getItem("lang") || ``,
       col:``,
+      drf:localStorage.getItem("drf") || ``,
     };
   }
   input = (value) => {
@@ -27,7 +31,7 @@ export default class Compiler extends Component {
     console.log(this.state)
   };
 
-
+  
   userInput = (event) => {
     event.preventDefault();
     this.setState({ user_input: event.target.value });
@@ -41,6 +45,9 @@ export default class Compiler extends Component {
     if (selectedLang) {
       this.setState({ lang: selectedLang.name });
       localStorage.setItem("lang",selectedLang.name);
+      this.setState({ drf: selectedLang.def });
+    localStorage.setItem("drf", selectedLang.def);
+    window.location.reload(false);
       
     }
   };
@@ -108,10 +115,7 @@ export default class Compiler extends Component {
       
       this.setState({ output: output  })
       localStorage.setItem("output",output);
-      alert("state"+this.state.output)
-      alert("var"+output)
-      if(test.trim()===output.trim){
-        alert(output)
+      if(test.trim()===output.trim()){
         this.setState({ col: wcolor  })
         localStorage.setItem("col",wcolor);
         alert(this.state.col)
@@ -201,11 +205,11 @@ export default class Compiler extends Component {
               onChange={this.language}
               id="tags"
               className="form-select  mb-2 language"
-              style={{backgroundColor:'#272822',borderColor:'#272822',width:200,marginRight:50,color:'white'}}
+              style={{backgroundColor:'#272822',borderColor:'#272822',width:200,marginRight:20,color:'white'}}
               defaultValue={this.state.language_id}
             >
               <option value="0"  >Select language</option>
-              <option value="50"  >C</option>
+              <option value="50">C</option>
               <option value="54">C++</option>
               <option value="62">Java</option>
               <option value="71">Python </option>
@@ -216,14 +220,23 @@ export default class Compiler extends Component {
               <option value="83">Swift </option>
               <option value="78">Kotlin </option>
             </select></div></Col>
-          <Col xs={12} md={6}><div style={{display:'flex',marginLeft:150}}>
+          <Col xs={12} md={3}><div style={{display:'flex',}}>
           <button
               type="submit"
               className="btn  ml-2 mr-2 "
               onClick={this.submit}
-              style={{backgroundColor:'#272822',borderColor:'#272822',color:'white' ,width:150}}
+              style={{backgroundColor:'#1e1e1e',borderColor:'#1e1e1e',color:'white' ,width:150}}
             >
               <i className="fas fa-cog fa-fw"></i> Run
+            </button></div></Col>
+            <Col xs={12} md={3}><div style={{display:'flex',}}>
+          <button
+              type="submit"
+              className="btn  ml-2 mr-2 "
+              onClick={this.submit}
+              style={{backgroundColor:'#1e1e1e',borderColor:'#1e1e1e',color:'white' ,width:150}}
+            >
+              <i className="fas fa-cog fa-fw"></i> Submit
             </button></div></Col>
                 </Row>
               </Container>
@@ -235,36 +248,88 @@ export default class Compiler extends Component {
         language={ this.state.lang}
         onChange={this.input}
         theme='vs-dark'
-        defaultValue="// some comment"
+        defaultValue={this.state.drf}
       />
-       <Accordion defaultActiveKey={['0']} alwaysOpen>
-      <Accordion.Item eventKey="0">
-        <Accordion.Header>Accordion Item #1</Accordion.Header>
-        <Accordion.Body>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </Accordion.Body>
-      </Accordion.Item>
-      <Accordion.Item eventKey="1">
-        <Accordion.Header>Accordion Item #2</Accordion.Header>
-        <Accordion.Body>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </Accordion.Body>
-      </Accordion.Item>
-    </Accordion>
     </Container>
+    <h5  style={{display:'flex',justifyContent:'start',marginTop:30}} >Custom Input</h5>
+    <textarea id="input"  
+                  rows={7} onChange={this.userInput} placeholder="Enter The Input Here" style={{backgroundColor: "#1e1e1e",
+                        color: "white", overflowY:'hidden',resize:'none',width:"100%"}}></textarea>
+    <Container style={{marginTop:30}}><h3>Test Case</h3></Container>
+    <Container>
+    <Tabs
+     defaultActiveKey="home"
+     transition={false}
+      id="noanim-tab-example"
+      className="mb-3"
+      style={{backgroundColor:'orange'}}
       
+    >
+    <Tab eventKey="home" title="Test Case 1" style={{height:200,width:'100%',backgroundColor: "#1e1e1e",marginTop:-20,color:'white',overflowY: "scroll",}} >
+      <p style={{marginTop:20,padding:20}} >
+        <h5>Input</h5>
+        <p style={{color:this.state.col}}> He is a very very good boy, isn't he?</p>
+        <h5>Expected Output</h5>
+        <p style={{color:this.state.col}}>
+                {" "}
+                10<br></br>
+                He<br></br>
+                is<br></br>a<br></br>
+                very<br></br>
+                very<br></br>
+                good<br></br>
+                boy<br></br>
+                isn<br></br>t<br></br>
+                he
+              </p>
+      </p>
+  </Tab>
+     <Tab eventKey="profile" title="Test Case 2" style={{height:200,width:'100%',backgroundColor: "#1e1e1e",marginTop:-20,color:'white',overflowY: "scroll"}}>
+     <p style={{marginTop:20,padding:20}} >
+        <h5>Input</h5>
+        <p style={{color:this.state.col}}> He is a very very good boy, isn't he?</p>
+        <h5>Expected Output</h5>
+        <p style={{color:this.state.col}}>
+                {" "}
+                10<br></br>
+                He<br></br>
+                is<br></br>a<br></br>
+                very<br></br>
+                very<br></br>
+                good<br></br>
+                boy<br></br>
+                isn<br></br>t<br></br>
+                he
+              </p>
+      </p>
+        </Tab>
+        <Tab eventKey="contact" title="Test Case 3"style={{height:200,width:'100%',backgroundColor: "#1e1e1e",marginTop:-20,color:'white',overflowY: "scroll"}} >
+        <p style={{marginTop:20,padding:20}} >
+        <h5>Input</h5>
+        <p style={{color:this.state.col}}> He is a very very good boy, isn't he?</p>
+        <h5>Expected Output</h5>
+        <p style={{color:this.state.col}}>
+                {" "}
+                10<br></br>
+                He<br></br>
+                is<br></br>a<br></br>
+                very<br></br>
+                very<br></br>
+                good<br></br>
+                boy<br></br>
+                isn<br></br>t<br></br>
+                he
+              </p>
+      </p>
+          </Tab>
+          </Tabs>
+         </Container>                    
+      <h5  style={{display:'flex',justifyContent:'start',marginTop:30}} >Your Output</h5>
+              <Container>
+              <textarea id="output"   
+                  rows={11} placeholder="Your Output Will Be Displayed Here" style={{backgroundColor: "#1e1e1e",
+                        color: "white",overflowY: "hidden" ,resize:'none',width:"100%"}} ></textarea>
+              </Container>
               
             </Col>
           </Row>

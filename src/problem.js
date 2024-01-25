@@ -38,7 +38,7 @@ function BasicExample() {
             <Card
               style={{
                 height: 160,
-                width: 500,
+                width: "100%",
                 marginTop: 15,
                 backgroundColor: "orange",
               }}
@@ -63,7 +63,7 @@ function BasicExample() {
             <Card
               style={{
                 height: 160,
-                width: 500,
+                width: "100%",
                 marginTop: 15,
                 backgroundColor: "orange",
               }}
@@ -92,7 +92,7 @@ function BasicExample() {
             <Card
               style={{
                 height: 160,
-                width: 500,
+                width: "100%",
                 marginTop: 15,
                 backgroundColor: "orange",
               }}
@@ -120,7 +120,7 @@ function BasicExample() {
             <Card
               style={{
                 height: 160,
-                width: 500,
+                width: "100%",
                 marginTop: 15,
                 backgroundColor: "orange",
               }}

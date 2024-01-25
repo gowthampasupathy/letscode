@@ -171,7 +171,7 @@ console.log("JSON Get Solution:", jsonGetSolution);
               type="submit"
               className="btn  ml-2 mr-2 "
               onClick={this.submit}
-              style={{backgroundColor:'#272822',borderColor:'#272822',color:'white' ,width:130}}
+              style={{backgroundColor:'#1e1e1e',borderColor:'#1e1e1e',color:'white' ,width:130}}
             >
               <i className="fas fa-cog fa-fw"></i> Run
             </button></div></Col>
@@ -194,17 +194,17 @@ console.log("JSON Get Solution:", jsonGetSolution);
         <Col xs={12} md={6}>
           <Row><h5 style={{display:'flex',justifyContent:'start'}}>Custom Input</h5>
             <Col xs={12} md={12}>
-          <textarea id="input"   cols={90} 
-                  rows={7} onChange={this.userInput} placeholder="Enter The Input Here" style={{backgroundColor: "#272822",
-                        color: "white", overflowY:'hidden',resize:'none'}}></textarea>
+          <textarea id="input"   
+                  rows={7} onChange={this.userInput} placeholder="Enter The Input Here" style={{backgroundColor: "#1e1e1e",
+                        color: "white", overflowY:'hidden',resize:'none',width:"100%"}}></textarea>
             </Col>
           </Row>
           <Row>
             <Col xs={12} md={12}>
             <h5  style={{display:'flex',justifyContent:'start'}} >Your Output</h5>
-              <textarea id="output"   cols={90}
-                  rows={11} placeholder="Your Output Will Be Displayed Here" style={{backgroundColor: "#272822",
-                        color: "white",overflowY: "hidden" ,resize:'none'}} ></textarea>
+              <textarea id="output"  
+                  rows={11} placeholder="Your Output Will Be Displayed Here" style={{backgroundColor: "#1e1e1e",
+                        color: "white",overflowY: "hidden" ,resize:'none',width:"100%"}} ></textarea>
             </Col>
           </Row>
         </Col>

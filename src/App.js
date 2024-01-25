@@ -29,11 +29,12 @@ function App() {
           <Route path="/Account" element={<Account />} />
           <Route path="/Board" element={<Board />} />
           <Route path="/Account/Logout" element={<Login />} />
-          <Route path="/Problem/solve" element={<Page />}></Route>
+          
         </Routes>
       </Container>
       <Routes>
         <Route>
+        <Route path="/Problem/solve" element={<Page />}></Route>
         <Route path="/" element={<Main />} />
         <Route path="/about" element={<Landingbody />} />
         <Route path="/Compiler" element={<Editor />} />
