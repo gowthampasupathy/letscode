@@ -10,7 +10,7 @@ import Cpp from "./cppcov";
 import Python from "./pycover";
 import Login from "./login";
 import Signup from "./signup";
-import Account from "./userinfo";
+import Account from "./profile";
 import Board from "./board"
 import Main from "./landing";
 import Landingbody from "./landingbody";

@@ -20,6 +20,7 @@ function BasicExample() {
       <Nav></Nav>
       <Container>
         <Container>
+        <Row>
           <Card
             style={{
               width: 1200,
@@ -29,7 +30,7 @@ function BasicExample() {
             }}
             className="shadow-lg"
           >
-            <Row>
+            
               <Col md={6} xs={12}>
                 <Card.Img
                   variant="top"
@@ -44,7 +45,7 @@ function BasicExample() {
                   backgroundColor: "orange",
                   height: 300,
                   marginLeft: -200,
-                  width: 800,
+                  width: "auto",
                 }}
               >
                 <Card.Body>
@@ -130,8 +131,9 @@ function BasicExample() {
                   </Card.Text>
                 </Card.Body>
               </Col>
-            </Row>
+            
           </Card>
+          </Row>
         </Container>
         <Container>
           <Row style={{ marginTop: 60, marginLeft: 40 }}>
@@ -181,6 +183,8 @@ function BasicExample() {
                 </Card.Header>
                 <Card.Body>
                   <img src={clogo} style={{ width: 100 }}></img>
+                  <img src={jlogo} style={{ width: 100, marginLeft: 20 }}></img>
+                  <img src={jlogo} style={{ width: 100, marginLeft: 20 }}></img>
                   <img src={jlogo} style={{ width: 100, marginLeft: 20 }}></img>
                 </Card.Body>
               </Card>
