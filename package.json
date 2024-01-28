@@ -12,6 +12,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "ace-builds": "^1.32.3",
+    "aos": "^2.3.4",
     "bootstrap": "^5.3.2",
     "monaco-editor": "^0.44.0",
     "monaco-editor-webpack-plugin": "^7.1.0",

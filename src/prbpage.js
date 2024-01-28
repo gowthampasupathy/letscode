@@ -262,7 +262,7 @@ export default class Compiler extends Component {
      transition={false}
       id="noanim-tab-example"
       className="mb-3"
-      style={{backgroundColor:'orange'}}
+      style={{backgroundColor:'#28282B '}}
       
     >
     <Tab eventKey="home" title="Test Case 1" style={{height:200,width:'100%',backgroundColor: "#1e1e1e",marginTop:-20,color:'white',overflowY: "scroll",}} >

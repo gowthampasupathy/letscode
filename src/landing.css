@@ -1,17 +1,23 @@
 .nav{
     background-color: #28282B;
     color: white;
+   
+}
+.nn{
+  background-color: red;
 }
 .ro{
-    display: flex;
-    width: 95.7rem;
-    height: 650px;
-    background-color:  #28282B;
+   
+  display: flex;
+  width: 100%;
+  height: auto;
+  background-color:  #28282B;
+  color: white;
+  
 
 }
 .img{
-    margin-top: 10%;
-    display: flex;
+    margin-top: 10%; 
     width: 85%;
     height: 500px;
     border-radius: 6px;
@@ -22,7 +28,7 @@
     height: auto;
     align-items: center;
     justify-content: center;
-    margin-top: 20%;
+    margin-top: 15%;
     color: white;
     text-align: start;
 
@@ -38,7 +44,7 @@
 .txt2{
     margin-top: 5%;
     text-align: start;
-    font-weight: 70px;
+    font-weight: bold;
     color: white;
     
 }
@@ -107,23 +113,26 @@
     scale: 0.95;
   }
   .sec{
-    display: flex;
+    
     width: 100%;
-    height: 300px;
+    height: 100%;
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin-top: 50px;
+    
+   
 
   }
   .con{
     padding: 2%;
     font-weight: 100px;
   }
-  .third{
-    display: flex;
-    width: auto;
+  .txt{
+    padding-top: 30px;
+  }
+  .third{ 
     height: auto;
+    width: 100%;
     background-color: #28282B;
     padding: 3%;
     color: white;
@@ -132,6 +141,28 @@
   .img2{
     width: 100%;
     height: 400px;
+
+  }
+  .last11{
+    display: flex;
+    width: 100%;
+    height: auto;
+    background-color:  #28282B;
+    padding: 3%;
+    color: white;
+    
+    
+
+  }
+  .last1{
+    display: flex;
+    width: 100%;
+    height: auto;
+    background-color:  #28282B;
+    padding: 3%;
+    color: white;
+    
+    
 
   }
   .last{
@@ -146,4 +177,7 @@
     justify-content: center;
     margin-top: 3%;
 
+  }
+  .mg{
+    width: 500px;
   }

@@ -6,12 +6,28 @@ import lancov from "./landcov.png";
 import Landingcom from "./landingcom";
 import ControlledCarousel from "./landcarosel";
 import { useNavigate } from "react-router-dom";
+import clogo from "./clogo.png"
+import jlogo from "./jlogo.jpg"
+import cpplogo from "./cpplogo.png"
+import pylogo from "./pylogo.png"
+import scrool from "./scrool1.png"
+import scrool1 from "./scrool2.png"
+import scrool2 from "./scrool3.png"
 const Landingbody = () => {
     const navigator = useNavigate();
   return (
     <div>
-      <Row className="ro">
+      <div className="last11"  >
+      <Row className="ro" >
+      <Col xs={12} md={6}>
+        <div data-aos="fade-right" data-aos-duration="1000">
+       
+          <img src={lancov} className="img"></img>
+        
+        </div>
+        </Col>
         <Col xs={12} md={6}>
+        <div data-aos="fade-left" data-aos-duration="1000" >
           <div className="frst">
             <p>
               <h1 className="txt1">
@@ -29,14 +45,13 @@ const Landingbody = () => {
               <button class="button"  onClick={() => navigator("/Signup")} ></button>
             </p>
           </div>
-        </Col>
-        <Col xs={12} md={6}>
-          <img src={lancov} className="img"></img>
-        </Col>
+        </div></Col>
       </Row>
-      <div className="sec">
-        <p>
-          <h1 className="txt">What is Lets Code ?</h1>
+      </div>
+      <div className="sec" data-aos="fade-up"data-aos-duration="1000"
+     data-aos-anchor-placement="center-bottom" >
+        <p >
+          <h1 className="txt" >What is Lets Code ?</h1>
           <p className="con">
             Lets Code is an online coding platform designed to enhance the
             problem-solving skills of programmers, with a primary focus on skill
@@ -52,12 +67,17 @@ const Landingbody = () => {
           </p>
         </p>
       </div>
-      <div>
+      <div data-aos="zoom-in" data-aos-duration="1000" >
       <Landingcom />
       </div>
-      <div>
-        <h1 style={{textAlign:'center',marginTop:50}}>Tracks Offered</h1>
-        <ControlledCarousel/>
+      <div style={{height:"200px"}}>
+        <h1 style={{textAlign:'center',marginTop:50}}>Available Languages</h1>
+        {/* <ControlledCarousel/> */}
+        <marquee SCROLLAMOUNT={20}>
+          <img className="mg"  src={scrool}></img>
+          <img className="mg"  src={scrool1}></img>
+          <img className="mg"  src={scrool2}></img>
+        </marquee>
       </div>
       <div className="last">
         <footer>&copy;2024 CopyRight letscode.com</footer>

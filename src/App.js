@@ -36,7 +36,6 @@ function App() {
         <Route>
         <Route path="/Problem/solve" element={<Page />}></Route>
         <Route path="/" element={<Main />} />
-        <Route path="/about" element={<Landingbody />} />
         <Route path="/Compiler" element={<Editor />} />
           <Route path="/Problem/kick" element={<Kick />}></Route>
           <Route path="/Problem/start" element={<Start />}></Route>

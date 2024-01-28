@@ -1,7 +1,6 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import logo from "./main.png";
 import "./landing.css";
 
@@ -17,10 +16,9 @@ function CollapsibleExample() {
             L E T S C O D E
           </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav"  className="justify-content-end">
+        <Navbar.Collapse   className="justify-content-end">
           <Nav>
-            <Nav.Link href="/about" style={{color:'white'}}>About Us</Nav.Link>
-            <Nav.Link  href="/login" style={{color:'white'}}>
+            <Nav.Link className='nn'  href="/login" >
               Login
             </Nav.Link>
           </Nav>

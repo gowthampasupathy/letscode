@@ -15,12 +15,12 @@ function ControlledCarousel() {
   return (
     <Carousel activeIndex={index} onSelect={handleSelect}>
       <Carousel.Item>
-        <Row className="flex-wrap">
-          <Col xs={12} md={4}>
+        <Row >
+          <Col xs={4} md={4}>
             <Card
               style={{
-                height: 160,
-                width: 500,
+                height: "100%",
+                width: "100%",
                 marginTop: 15,
                 backgroundColor: "orange",
               }}
@@ -41,11 +41,11 @@ function ControlledCarousel() {
               </Card.Body>
             </Card>
           </Col>
-          <Col xs={12} md={4}>
+          <Col xs={4} md={4}>
             <Card
               style={{
-                height: 160,
-                width: 500,
+                height: "100%",
+                width: "100%",
                 marginTop: 15,
                 backgroundColor: "orange",
               }}
@@ -66,11 +66,11 @@ function ControlledCarousel() {
               </Card.Body>
             </Card>
           </Col>
-          <Col xs={12} md={4}>
+          <Col xs={4} md={4}>
             <Card
               style={{
-                height: 160,
-                width: 500,
+                height: "100%",
+                width: "100%",
                 marginTop: 15,
                 backgroundColor: "orange",
               }}
@@ -98,11 +98,11 @@ function ControlledCarousel() {
       
       <Carousel.Item>
       <Row className="flex-wrap">
-          <Col xs={12} md={4}>
+          <Col xs={4} md={4}>
             <Card
               style={{
-                height: 160,
-                width: 500,
+                height: "100%",
+                width: "100%",
                 marginTop: 15,
                 backgroundColor: "orange",
               }}
@@ -123,11 +123,11 @@ function ControlledCarousel() {
               </Card.Body>
             </Card>
           </Col>
-          <Col xs={12} md={4}>
+          <Col xs={4} md={4}>
             <Card
               style={{
-                height: 160,
-                width: 500,
+                height: "100%",
+                width: "100%",
                 marginTop: 15,
                 backgroundColor: "orange",
               }}
@@ -148,11 +148,11 @@ function ControlledCarousel() {
               </Card.Body>
             </Card>
           </Col>
-          <Col xs={12} md={4}>
+          <Col xs={4} md={4}>
             <Card
               style={{
-                height: 160,
-                width: 500,
+                height: "100%",
+                width: "100%",
                 marginTop: 15,
                 backgroundColor: "orange",
               }}
@@ -179,11 +179,11 @@ function ControlledCarousel() {
       </Carousel.Item>
       <Carousel.Item>
       <Row className="flex-wrap">
-          <Col xs={12} md={4}>
+          <Col xs={4} md={4}>
             <Card
               style={{
-                height: 160,
-                width: 500,
+                height: "100%",
+                width: "100%",
                 marginTop: 15,
                 backgroundColor: "orange",
               }}
@@ -204,11 +204,11 @@ function ControlledCarousel() {
               </Card.Body>
             </Card>
           </Col>
-          <Col xs={12} md={4}>
+          <Col xs={4} md={4}>
             <Card
               style={{
-                height: 160,
-                width: 500,
+                height: "100%",
+                width: "100%",
                 marginTop: 15,
                 backgroundColor: "orange",
               }}
@@ -229,11 +229,11 @@ function ControlledCarousel() {
               </Card.Body>
             </Card>
           </Col>
-          <Col xs={12} md={4}>
+          <Col xs={4} md={4}>
             <Card
               style={{
-                height: 160,
-                width: 500,
+                height:"100%",
+                width: "100%",
                 marginTop: 15,
                 backgroundColor: "orange",
               }}

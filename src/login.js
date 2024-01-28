@@ -10,21 +10,23 @@ import Form from "react-bootstrap/Form";
 function App() {
   return (
     <>
-      <Container>
+      <Container>\
+        <Row>
+        <Col md={4} xs={12} style={{ margin:"auto"  }}>
         <Card
           style={{
-            width:1000,
+            width:"100%",
             height:500,
-            margin:'auto',
-            marginTop:120
+            backgroundColor: "orange",
+            marginTop:60
           }}
           className="shadow-lg"
         >
-          <Row>
-            <Col md={6} xs={12}>
-              <Card.Img variant="top" src={pic} style={{ width:500 }} />
-            </Col>
-            <Col md={6} xs={12} style={{ backgroundColor: "orange",height:500 }}>
+          
+            {/* <Col md={6} xs={12}>
+              <Card.Img variant="top" src={pic} style={{ width:"100%" ,height:500}} />
+            </Col> */}
+           
               <Card.Body>
                 <Card.Text>
                   <h1
@@ -36,8 +38,8 @@ function App() {
                   >
                     W E L C O M E
                   </h1>
-                  <h3 style={{ textAlign: "center" }}>B A C K</h3>
-                  <h5 style={{ textAlign: "center" }}>
+                  <h3 xs={12} md={12} style={{ textAlign: "center" }}>B A C K</h3>
+                  <h5 xs={12} md={12} style={{ textAlign: "center",width:"100%" }}>
                     Login In To Continue Your Coding
                   </h5>
                   <Container style={{ marginTop: 50 }}>
@@ -45,13 +47,13 @@ function App() {
                       <Form.Group
                         className="mb-4"
                         controlId="formBasicEmail"
-                        style={{ marginLeft: 10 }}
+                        style={{ marginLeft: 10 ,}}
                       >
                         <Form.Control
                           type="email"
                           className="mt-1"
                           placeholder="Enter email"
-                          style={{ width: 400 }}
+                          style={{ width: "100%" }}
                         />
                       </Form.Group>
 
@@ -64,7 +66,7 @@ function App() {
                           type="password"
                           placeholder="Password"
                           className="mt-1"
-                          style={{ width: 400 }}
+                          style={{ width: "100%" }}
                         />
                       </Form.Group>
                       <Form.Group
@@ -73,7 +75,7 @@ function App() {
                       ></Form.Group>
                       <Button
                         style={{
-                          width: 400,
+                          width: "100%",
                           marginLeft: 10,
                           marginTop: 30,
                           backgroundColor: "black",
@@ -85,27 +87,33 @@ function App() {
                         Login
                       </Button>
                     </Form>
-                    <a href="#psss" style={{ color: "black", marginLeft: 20 }}>
+                    <Row>
+                      <Col md={6} xs={6}><a href="#psss" style={{ color: "black", width:"100%" }}>
                       Forgot Password
-                    </a>
-                    <p
+                    </a></Col>
+                      <Col md={6} xs={6}> <p
                       style={{
                         color: "black",
-                        marginLeft: 180,
-                        marginTop: -25,
+                        
+                        width:"100%"
                       }}
                     >
                       Don't Have An Account ?
                       <a href="/Signup" style={{ color: "black", }}>
                         SignUp
                       </a>
-                    </p>
+                    </p></Col>
+                    </Row>
+                    
+                   
                   </Container>
                 </Card.Text>
               </Card.Body>
-            </Col>
-          </Row>
+          
+      
         </Card>
+        </Col>
+        </Row>
       </Container>
     </>
   );
