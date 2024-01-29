@@ -8,7 +8,7 @@ import List from "./list"
 function BasicExample() {
   return (
     <div>
-      <Image src={pic} fluid style={{ width: 1600, marginTop: "-50px" }} />
+      <img src={pic} fluid style={{ width: "100%",height:'100%', marginTop: "-50px" }} ></img>
       <Container>
         <h4 style={{ fontWeight: "bold", textAlign: "center", marginTop: 15 }}>
           Contains 10+ KickStart track programs{" "}

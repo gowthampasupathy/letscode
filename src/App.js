@@ -11,7 +11,7 @@ import Python from "./pycover";
 import Login from "./login";
 import Signup from "./signup";
 import Account from "./profile";
-import Board from "./board"
+import Board from "./leader"
 import Main from "./landing";
 import Landingbody from "./landingbody";
 import Editor from "./simplesditor";

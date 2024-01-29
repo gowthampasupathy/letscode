@@ -67,7 +67,8 @@ const Landingbody = () => {
           </p>
         </p>
       </div>
-      <div data-aos="zoom-in" data-aos-duration="1000" >
+      <div data-aos="fade-up"data-aos-duration="1000"
+     data-aos-anchor-placement="center-bottom" >
       <Landingcom />
       </div>
       <div style={{height:"200px"}}>
