@@ -74,13 +74,16 @@ function BasicExample() {
   return (
     <div>
       <Container>
-        <Row>
-          <Col xs={9} md={9} style={{ overflowY: "scroll" }}>
+        <Row style={{marginTop:-25}}>
+          <Col xs={9} md={9} >
             <Col xs={12} md={12}>
+              <div style={{ overflowY: "scroll",width:'100%',height:450 }}>
               <CardList cards={filteredCards} />
+              </div>
+              
             </Col>
           </Col>
-          <Col xs={3} md={3}>
+          <Col xs={3} md={3} >
             <h4>Difficulty</h4>
             <h5 style={{ fontWeight: "normal" }}>
               <Form.Check
