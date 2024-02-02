@@ -12,7 +12,7 @@ function BasicExample() {
         fixed="top"
         expand="lg"
         className=" "
-        style={{ backgroundColor: "orange", boxShadow: 5000 }}
+        style={{ backgroundColor: "orange", boxShadow: 5000,width:'100%' }}
       >
         <Container>
           <Navbar.Brand href="#home">
@@ -20,7 +20,7 @@ function BasicExample() {
               src={logo}
               style={{ height: 55, width: 50, marginRight: 7 }}
             ></img>
-            L E T S C O D E
+            A D M I N P O R T A L
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -38,7 +38,7 @@ function BasicExample() {
                   color: "black",
                 }}
               >
-                EXPLORE
+                DASHBOARD
               </Link>
               <Link
                 className="opt"
@@ -50,7 +50,7 @@ function BasicExample() {
                   color: "black",
                 }}
               >
-                PROBLEM
+                VIEW USER
               </Link>
               <Link
                 className="opt"
@@ -62,7 +62,7 @@ function BasicExample() {
                   color: "black",
                 }}
               >
-                ACCOUNT
+                PROBLEM MODIFICATION
               </Link>
               <Link
                 className="opt"
@@ -74,7 +74,7 @@ function BasicExample() {
                   color: "black",
                 }}
               >
-                LEADER BOARD{" "}
+                ADD TRACKS
               </Link>
               
             </Nav>

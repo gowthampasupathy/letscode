@@ -6,7 +6,7 @@ import Prb from "./problem";
 import Page from "./prbpage";
 import Kick from "./kickstart";
 import Start from "./c-starter";
-import Cpp from "./cppcov";
+import Cpp from "./tes";
 import Python from "./pycover";
 import Login from "./login";
 import Signup from "./signup";

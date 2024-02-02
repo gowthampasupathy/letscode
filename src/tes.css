@@ -1,0 +1,53 @@
+/* .con{
+  display: inline-block;
+  font-family: "arial";
+  font-size: 24px;
+}
+
+.typed {
+  color: white;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid;
+  width: 0;
+  animation: typing;
+  animation-duration: 1.5s;
+  animation-timing-function: steps(30, end);
+  animation-fill-mode: forwards;
+}
+  
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+} */
+
+.typewriter h1 {
+  color: #fff;
+  font-family: monospace;
+  overflow: hidden; 
+  border-right: .15em solid #ff914d; 
+  white-space: nowrap; 
+  margin: 0 auto; 
+  letter-spacing: .15em; 
+  animation: 
+    typing 3.5s steps(30, end),
+    blink-caret .5s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #ff914d }
+}
+.top{
+  background-color: black;
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

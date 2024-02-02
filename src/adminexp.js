@@ -7,7 +7,8 @@ import logo from "./main.png";
 import clogo from "./clogo.png";
 import jlogo from "./jlogo.jpg";
 import cpplogo from "./cpplogo.png";
-import pylogo from "./pylogo.png";
+import user from "./p.png";
+import pr from "./p1.png";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
@@ -19,162 +20,104 @@ import App2 from "./addmodal";
 import App3 from "./updatemodal";
 import App4 from "./deletemodal";
 import { useNavigate } from "react-router-dom";
+import { orange } from "@mui/material/colors";
+//import { LineChart } from '@mui/x-charts/LineChart';
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer,Area } from 'recharts';
 function BasicExample() {
-  const navigator = useNavigate();
-  const [modalShow, setModalShow] = React.useState(false);
-  const [modalShow1, setModalShow1] = React.useState(false);
-  const [modalShow2, setModalShow2] = React.useState(false);
+  const data = [
+    { name: 1, value: 2 },
+    { name: 2, value: 5.5 },
+    { name: 3, value: 2 },
+    { name: 5, value: 8.5 },
+    { name: 8, value: 1.5 },
+    { name: 10, value: 5 },
+  ];
   return (
     <div>
       <Navi />
-      <Container>
-        <h6 style={{ marginTop: 100, fontSize: 20, color: "GrayText" }}>
-          Welcome To
-        </h6>
-        <h1>LetsCode Explore </h1>
-        <Row style={{ marginLeft: 600 }}>
-          <Col md={4}>
-            {" "}
-            <Button
-              style={{ backgroundColor: "#36454F", borderColor: "#36454F" }}
-              value={"String"}
-              onClick={() => setModalShow(true)}
-            >
-              Add New Languages
-            </Button>
-            <App2 show={modalShow} onHide={() => setModalShow(false)} />
+      <div style={{marginTop:150}}>
+        <Row>
+          <Col xs={12} md={4} style={{padding:30,}}>
+            <Card style={{backgroundColor:"#1e1e1e",width:"auto",height:160}} >
+              <Row>
+              <Col xs={4} md={4}><img src={user} style={{width:'9rem',height:'100%',padding:15,}}></img></Col>
+              <Col xs={8} md={8} style={{padding:30,color:'orange'}}>
+                <Container style={{textAlign:'center'}} >
+                  <Row>
+                    <h1>50</h1>
+                  </Row>
+                  <Row>
+                    <p>Total Problem Solved</p>
+                  </Row>
+                </Container>
+              </Col>
+              </Row>
+            </Card>
           </Col>
-          <Col md={4}>
-            {" "}
-            <Button
-              style={{ backgroundColor: "#36454F", borderColor: "#36454F" }}
-              value={"String"}
-              onClick={() => setModalShow1(true)}
-            >
-              Update Languages
-            </Button>
-            <App3 show={modalShow1} onHide={() => setModalShow1(false)} />
+          <Col xs={12} md={4} style={{padding:30}}>
+            <Card style={{backgroundColor:"#1e1e1e",width:"auto",height:160}} >
+              <Row>
+              <Col xs={4} md={4}><img src={pr} style={{width:'9rem',height:'100%',padding:10}}></img></Col>
+              <Col xs={8} md={8} style={{padding:30,color:'orange'}}>
+                <Container style={{textAlign:'center'}} >
+                  <Row>
+                    <h1>50</h1>
+                  </Row>
+                  <Row>
+                    <p>Total Users</p>
+                  </Row>
+                </Container>
+              </Col>
+              </Row>
+            </Card>
           </Col>
-          <Col md={4}>
-            {" "}
-            <Button
-              style={{ backgroundColor: "#36454F", borderColor: "#36454F" }}
-              value={"String"}
-              onClick={() => setModalShow2(true)}
-            >
-              Delete Languages
-            </Button>
-            <App4 show={modalShow2} onHide={() => setModalShow2(false)} />
+          <Col xs={12} md={4} style={{padding:30,}}>
+            <Card style={{backgroundColor:"#1e1e1e",width:"auto",height:160}} >
+              <Row>
+              <Col xs={4} md={4}><img src={pr} style={{width:'9rem',height:'100%',padding:10}}></img></Col>
+              <Col xs={8} md={8} style={{padding:30,color:'orange'}}>
+                <Container style={{textAlign:'center'}} >
+                  <Row>
+                    <h1>50</h1>
+                  </Row>
+                  <Row>
+                    <p>Active Users</p>
+                  </Row>
+                </Container>
+              </Col>
+              </Row>
+            </Card>
           </Col>
+          {/* <Col xs={12} md={6}></Col> */}
         </Row>
-      </Container>
-      <Container>
-        <h3 style={{ marginTop: 50 }}>Available Languages</h3>
-      </Container>
-      <Container>
-        <Row className="flex-wrap">
-          <Col xs={12} md={3}>
-            {" "}
-            <Card className=" card1 shadow-sm">
-              <Card.Img
-                variant="top"
-                src={clogo}
-                style={{ height: 200, width: 200, margin: "auto" }}
-              />
-              <Card.Body>
-                <Card.Title>C Programming</Card.Title>
-                <Card.Text>
-                  Hands-on Programming Challenges to learn and practise C
-                </Card.Text>
-                <button
-                  type="button"
-                  class="touch"
-                  
-                >
-                  <span>
-                    Show<i class="bi bi-chevron-double-right"></i>
-                  </span>
-                </button>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={3}>
-            {" "}
-            <Card className=" card1 shadow-sm">
-              <Card.Img
-                variant="top"
-                src={jlogo}
-                style={{ height: 200, width: 200, margin: "auto" }}
-              />
-              <Card.Body>
-                <Card.Title>Java Programming </Card.Title>
-                <Card.Text>
-                  Hands-on Programming Challenges to learn and practise Java
-                </Card.Text>
-                <button
-                  type="button"
-                  class="touch"
-                  onClick={() => navigator("/Exp/cpp")}
-                >
-                  <span>
-                    Show<i class="bi bi-chevron-double-right"></i>
-                  </span>
-                </button>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={3}>
-            {" "}
-            <Card className=" card1 shadow-sm">
-              <Card.Img
-                variant="top"
-                src={cpplogo}
-                style={{ height: 200, width: 200, margin: "auto" }}
-              />
-              <Card.Body>
-                <Card.Title>C++ Programming </Card.Title>
-                <Card.Text>
-                  Hands-on Programming Challenges to learn and practise C++
-                </Card.Text>
-                <button
-                  type="button"
-                  class="touch"
-                  onClick={() => navigator("/Exp/cpp")}
-                >
-                  <span>
-                    Show<i class="bi bi-chevron-double-right"></i>
-                  </span>
-                </button>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={3}>
-            {" "}
-            <Card className=" card1 shadow-sm">
-              <Card.Img
-                variant="top"
-                src={pylogo}
-                style={{ height: 200, width: 200, margin: "auto" }}
-              />
-              <Card.Body>
-                <Card.Title>Python Programming</Card.Title>
-                <Card.Text>
-                  SoHands-on Programming Challenges to learn and practise Python
-                </Card.Text>
-                <button
-                  type="button"
-                  class="touch"
-                  onClick={() => navigator("/Exp/cpp")}
-                >
-                  <span>
-                    Show<i class="bi bi-chevron-double-right"></i>
-                  </span>
-                </button>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+      </div>
+   <Row>
+   <div>
+      {/* <LineChart
+      xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
+      series={[
+        {
+          data: [2, 5.5, 2, 8.5, 1.5, 5],
+          stroke: "orange", // Set the color of the line to orange
+        },
+      ]}
+      width={"900"}
+      height={400}
+      
+    /> */}
+    <ResponsiveContainer width="100%" height={400}>
+  <LineChart
+    data={data}
+    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+  >
+    <XAxis dataKey="name" />
+    <YAxis />
+    <Line type="monotone" dataKey="value" stroke="orange" />
+    <Area type="monotone" dataKey="value" stroke="orange" fill="orange" fillOpacity={0.3} />
+  </LineChart>
+</ResponsiveContainer>
+      </div>
+   </Row>
     </div>
   );
 }
