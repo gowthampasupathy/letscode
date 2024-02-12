@@ -12,6 +12,8 @@ import React from "react";
 import App2 from "./passmodal";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
+import Form from 'react-bootstrap/Form';
+import { Table } from "react-bootstrap";
 function BasicExample() {
   const navigator = useNavigate();
   const [modalShow, setModalShow] = React.useState(false);
@@ -19,181 +21,142 @@ function BasicExample() {
   return (
     <div>
       <Nav></Nav>
-      <Container>
-      
-        <Container>
-        <Button
-              style={{ backgroundColor: "#36454F", borderColor: "#36454F" ,marginTop:100}}
-              value={"String"}
-            > Edit Fields
-            </Button>
-          <Card
-            style={{
-              width: 1200,
-              height: 300,
-              margin: "auto",
-              marginTop: 50,
-            }}
-            className="shadow-lg"
-          >
-            <Row>
-              <Col md={6} xs={12}>
-                <Card.Img
-                  variant="top"
-                  src={prof}
-                  style={{ width: 250, marginTop: 20, marginLeft: 60 }}
-                />
-              </Col>
-              <Col
-                md={6}
-                xs={12}
-                style={{
-                  backgroundColor: "orange",
-                  height: 300,
-                  marginLeft: -200,
-                  width: 800,
-                }}
-              >
-                <Card.Body>
-                  <Card.Text>
-                    <h1
-                      style={{
-                        fontFamily: "-moz-initial",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      My Profile
-                    </h1>
-                    <Row style={{ marginTop: 30 }}>
-                      <Col md={6} xs={12}>
-                        <h5 style={{ marginLeft: 60 }}>Name: Gowtham</h5>
-                      </Col>
-                      <Col md={6} xs={12}>
-                        <h5 style={{ marginLeft: -90 }}>
-                          Email: 717821f116@kce.ac.in
-                        </h5>
-                      </Col>
-                    </Row>
-                    <Row style={{ marginTop: 30 }}>
-                      <Col md={6} xs={12}>
-                        <h5 style={{ marginLeft: 60 }}>Contact: 6374013119</h5>
-                      </Col>
-                      <Col md={6} xs={12}>
-                        <h5 style={{ marginLeft: -90 }}>
-                          {" "}
-                          College: Karpagam College Of Engineering
-                        </h5>
-                      </Col>
-                    </Row>
-                    <Row style={{ marginTop: 30 }}>
-                      <Col md={4} xs={12}>
-                        <button
-                          type="button"
-                          class="touch"
-                          style={{ marginLeft: 40, width: 200 }}
-                          onClick={() => setModalShow1(true)}
-                        >
-                          <span>
-                            Reset Password
-                            <i class="bi bi-chevron-double-right"></i>
-                          </span>
-                        </button>
-                        <App2
-                          show={modalShow1}
-                          onHide={() => setModalShow1(false)}
-                        />
-                      </Col>
-                      <Col md={4} xs={12}>
-                        <button
-                          type="button"
-                          class="touch"
-                          style={{ marginLeft: 40, width: 200 }}
-                          onClick={() => setModalShow(true)}
-                        >
-                          <span>
-                            Edit Profile
-                            <i class="bi bi-chevron-double-right"></i>
-                          </span>
-                        </button>
-                        <App
-                          show={modalShow}
-                          onHide={() => setModalShow(false)}
-                        />
-                      </Col>
-                      <Col md={4} xs={12}>
-                        <button
-                          type="button"
-                          class="touch"
-                          onClick={() => navigator("/Account/Logout")}
-                          style={{ marginLeft: 40, width: 200 }}
-                        >
-                          <span>
-                            Log Out
-                            <i class="bi bi-chevron-double-right"></i>
-                          </span>
-                        </button>
-                      </Col>
-                    </Row>
-                  </Card.Text>
-                </Card.Body>
-              </Col>
-            </Row>
-          </Card>
-        </Container>
-        <Container>
-          <Row style={{ marginTop: 60, marginLeft: 40 }}>
-            <Col xs={12} md={5}>
-              <Card>
-                <Card.Header
-                  style={{ backgroundColor: "black", color: "white" }}
-                >
-                  Problem Finished
-                </Card.Header>
-                <Card.Body>
-                  <Card.Text>
-                    <h5>Total Problem Solved:15</h5>
-                    <h5>Easy Level:5</h5>
-                    <h5> Medium Level:5</h5>
-                    <h5>Hard Level:5</h5>
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col xs={12} md={5}>
-              <Card>
-                <Card.Header
-                  style={{ backgroundColor: "black", color: "white" }}
-                >
-                  Courses
-                </Card.Header>
-                <Card.Body>
-                  <Card.Text>
-                    <h6> Kick Start For Absolute Beginners </h6>
-                    <hr></hr>
-                    <h6>C++ - 10 VERY-EASY CHALLENGES </h6>
-                    <hr></hr>
-                    <h6>PYTHON3.x - 10 AVERAGE CHALLENGES </h6>
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-          <Row style={{ marginTop: 10, marginLeft: 40 }}>
-            <Col xs={12} md={5}>
-              <Card>
-                <Card.Header
-                  style={{ backgroundColor: "black", color: "white" }}
-                >
-                  Badges
-                </Card.Header>
-                <Card.Body>
-                  <img src={clogo} style={{ width: 100 }}></img>
-                  <img src={jlogo} style={{ width: 100, marginLeft: 20 }}></img>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
+      <Container style={{marginTop:150}}>
+        <h2>Problem Addition</h2>
+      <Card className="shadow-sm" style={{padding:20}}>
+      <Row>
+        <Col xs={12} md={4}>
+        <Form.Group className="mb-3">
+        <Form.Label><h5>Problem Id</h5></Form.Label>
+        <Form.Control placeholder="Enter the Problem Id"  />
+      </Form.Group>
+
+        </Col>
+        <Col xs={12} md={8}>
+        <Form.Group className="mb-3">
+        <Form.Label><h5>Problem Title</h5></Form.Label>
+        <Form.Control placeholder="Enter the Problem Title" >
+        </Form.Control>
+      </Form.Group>
+        </Col>
+      </Row>
+      <Row>
+        <Form.Group>
+          <Form.Label>
+            <h5>Description</h5>
+          </Form.Label>
+          <Form.Control as="textarea" rows={3} ></Form.Control>
+        </Form.Group>
+      </Row>
+      <Row style={{marginTop:20}}>
+        <Col xs={12} md={6}>
+          <Form.Group>
+            <Form.Label>
+              <h5>Sample Input</h5>
+            </Form.Label>
+            <Form.Control as="textarea" rows={3}></Form.Control>
+          </Form.Group>
+        </Col>
+        <Col xs={12} md={6}>
+        <Form.Group>
+            <Form.Label>
+              <h5>Sample Output</h5>
+            </Form.Label>
+            <Form.Control as="textarea" rows={3}></Form.Control>
+          </Form.Group>
+        </Col>
+      </Row>
+     <Row style={{marginTop:20}}>
+      <Col xs={12} md={3}>
+        <Form.Group>
+          <Form.Label>
+            <h5>Category</h5>
+          </Form.Label>
+          <Form.Select>
+            <option>Select Category</option>
+            <option>Basics Of C++</option>
+            <option>Kick Start To c</option>
+            <option>Inteoduction to Python</option>
+            <option>General</option>
+          </Form.Select>
+        </Form.Group>
+      </Col>
+      <Col xs={12} md={3}>
+      <Form.Group>
+          <Form.Label>
+            <h5>Level</h5>
+          </Form.Label>
+          <Form.Select>
+            <option>Select Level</option>
+            <option>Basics</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+          </Form.Select>
+        </Form.Group>
+      </Col>
+      <Col xs={12} md={3}>
+      <Form.Group>
+          <Form.Label>
+            <h5>Difficulty</h5>
+          </Form.Label>
+          <Form.Select>
+            <option>Select Difficulty</option>
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Hard</option>
+          </Form.Select>
+        </Form.Group>
+      </Col>
+      <Col xs={12} md={3}>
+      <Form.Group>
+          <Form.Label>
+            <h5>Concept</h5>
+          </Form.Label>
+          <Form.Select>
+            <option>Select Concept</option>
+            <option>Array</option>
+            <option>String</option>
+            <option>List</option>
+            <option>General</option>
+          </Form.Select>
+        </Form.Group>
+      </Col>
+     </Row>
+      </Card>
+      </Container>
+      <Container style={{marginTop:20}}> 
+        <h2>Problem Deletion</h2>
+        <Card style={{padding:30}} className="shadow-sm">
+          <Table striped bordered hover>
+            <thead>
+             <th>Title</th>
+             <th>Category</th>
+             <th></th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Prime Checker</td>
+                <td>General</td>
+                <td><Button variant="outline-dark">Remove</Button></td>
+              </tr>
+              <tr>
+                <td>Prime Checker</td>
+                <td>General</td>
+                <td><Button variant="outline-dark">Remove</Button></td>
+              </tr>
+              <tr>
+                <td>Prime Checker</td>
+                <td>General</td>
+                <td style={{width:110}}><Button variant="outline-dark">Remove</Button></td>
+              </tr>
+              <tr>
+                <td>Prime Checker</td>
+                <td>General</td>
+                <td><Button variant="outline-dark">Remove</Button></td>
+              </tr>
+            </tbody>
+          </Table>
+        </Card>
       </Container>
     </div>
   );
