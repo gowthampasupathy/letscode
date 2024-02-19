@@ -6,8 +6,26 @@ import Button from "react-bootstrap/Button";
 import pic from "./mainlogo.png";
 import "./login.css";
 import Form from "react-bootstrap/Form";
-
+import { useState } from "react";
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 function App() {
+  const [name,setname]=useState()
+  const [email,setemail]=useState()
+  const [password,setpassword]=useState()
+  const navigate=useNavigate();
+ 
+  const Submit =(e)=>{
+    e.preventDefault();
+    axios.post("http://localhost:3001/register",{name,email,password})
+    .then(res=>{
+      navigate("/login")
+      console.log("created")
+    })
+    .catch(err=>alert(err))
+    
+  }
+  
   return (
     <>
       <Container>
@@ -39,13 +57,14 @@ function App() {
                     Create Account To Explopre The Platform
                   </h5>
                   <Container style={{ marginTop: 10 }}>
-                    <Form style={{ padding: 30 }}>
-                      <Form.Group className="mb-4" controlId="formBasicEmail">
+                    <Form style={{ padding: 30 }} onSubmit={Submit} >
+                      <Form.Group className="mb-4" controlId="TextInput">
                         <Form.Control
                           type="text"
                           className="mt-1"
                           placeholder="Enter Username"
                           style={{ width: "100%" }}
+                          onChange={(e)=>setname(e.target.value)}
                         />
                       </Form.Group>
                       <Form.Group className="mb-4" controlId="formBasicEmail">
@@ -54,6 +73,7 @@ function App() {
                           className="mt-1"
                           placeholder="Enter email"
                           style={{ width: "100%" }}
+                          onChange={(e)=>setemail(e.target.value)}
                         />
                       </Form.Group>
 
@@ -66,9 +86,10 @@ function App() {
                           placeholder="Password"
                           className="mt-1"
                           style={{ width: "100%" }}
+                          onChange={(e)=>setpassword(e.target.value)}
                         />
                       </Form.Group>
-                      <Form.Group
+                      {/* <Form.Group
                         className="mb-4"
                         controlId="formBasicPassword"
                       >
@@ -82,7 +103,7 @@ function App() {
                       <Form.Group
                         className="mb-3"
                         controlId="formBasicCheckbox"
-                      ></Form.Group>
+                      ></Form.Group> */}
                       <Button
                         style={{
                           width: "100%",
@@ -91,7 +112,8 @@ function App() {
                           borderColor: "orange",
                         }}
                         type="submit"
-                        href="/Exp"
+                        //href="/Exp"
+                        
                       >
                         SignUp
                       </Button>

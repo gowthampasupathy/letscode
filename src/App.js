@@ -13,8 +13,11 @@ import Signup from "./signup";
 import Account from "./profile";
 import Board from "./leader"
 import Main from "./landing";
-import Landingbody from "./landingbody";
 import Editor from "./simplesditor";
+import AAccount from "./adminaccount";
+import ABoard from "./adminboard";
+import AExp from "./adminexp";
+import APrb from "./adminprb";
 function App() {
   return (
     <>
@@ -29,7 +32,10 @@ function App() {
           <Route path="/Account" element={<Account />} />
           <Route path="/Board" element={<Board />} />
           <Route path="/Account/Logout" element={<Login />} />
-          
+          <Route path="/admin" element={<AExp />}></Route>
+          <Route path="/AdProblem" element={<APrb />}></Route>
+          <Route path="/AdAccount" element={<AAccount />} />
+          <Route path="/AdBoard" element={<ABoard />} />
         </Routes>
       </Container>
       <Routes>

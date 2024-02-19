@@ -15,8 +15,16 @@ import { Link } from "react-router-dom"
 import Navi from './nav'
 import "./problem.css";
 import {useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import axios from 'axios'
 function BasicExample() {
   const navigator =useNavigate();
+  const [track,settrack]=useState([])
+  useEffect(()=>{
+    axios.get('http://localhost:3001/trac')
+    .then((result)=>settrack(result.data))
+    .catch((err)=>console.log(err))
+  },[])
   return (     
   <div> 
      <Navi/>
@@ -28,7 +36,7 @@ function BasicExample() {
         <h3 style={{marginTop:50}}>Available Languages</h3>
     </Container>
     <Container>
-      <Row className="flex-wrap"
+      {/* <Row className="flex-wrap"
       >
         <Col xs={12} md={3}> <Card className=" card1 shadow-sm">
       <Card.Img variant="top" src={clogo} style={{height:200,width:200,margin:'auto'}} />
@@ -70,6 +78,31 @@ function BasicExample() {
         <button type='button' class='touch' onClick={()=>navigator("/Exp/cpp")}  ><span>Show<i class="bi bi-chevron-double-right"></i></span></button>
       </Card.Body>
     </Card></Col>
+      </Row> */}
+        <Row className="flex-wrap" xs={12} md={4} style={{marginTop:50}}
+      >
+       {
+        track.map((trk)=>{
+          return  <div  data-aos="fade-zoom-in"
+          data-aos-easing="ease-in-back"
+          data-aos-delay="70"
+          data-aos-offset="0">
+            <Col > <Card className=" card1 shadow-sm" style={{margin:5,}}>
+          <Card.Img variant="top" src={trk.imageurl} style={{height:200,width:200,margin:'auto'}} />
+          <Card.Body >
+            <Card.Title>{trk.title}</Card.Title>
+            <Card.Text>
+            {
+              trk.description
+            }
+            </Card.Text>
+            <button type='button' class='touch' onClick={()=>navigator("/Exp/cpp")}  ><span>Show<i class="bi bi-chevron-double-right"></i></span></button>
+          </Card.Body>
+        </Card></Col> 
+          </div>
+         
+        })
+       }
       </Row>
     </Container>
     

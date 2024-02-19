@@ -6,11 +6,33 @@ import Button from "react-bootstrap/Button";
 import pic from "./mainlogo.png";
 import "./login.css";
 import Form from "react-bootstrap/Form";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function App() {
+  const [email,setemail]=useState()
+  const [password,setpassword]=useState()
+  const navigate=useNavigate()
+  axios.defaults.withCredentials=true
+  const Submit =(e)=>{
+    e.preventDefault();
+    axios.post("http://localhost:3001/login",{email,password})
+    .then(res=>{
+      if(res.data.status==="Success"){
+        if(res.data.role==="admin"){
+          navigate("/admin")
+        }else{
+          navigate("/Exp")
+        }
+      }
+    })
+    .catch(err=>alert(err))
+    
+  }
   return (
     <>
-      <Container>\
+      <Container>
         <Row>
         <Col md={4} xs={12} style={{ margin:"auto"  }}>
         <Card
@@ -43,7 +65,7 @@ function App() {
                     Login In To Continue Your Coding
                   </h5>
                   <Container style={{ marginTop: 50 }}>
-                    <Form style={{ padding: 10 }}>
+                    <Form style={{ padding: 10 }} onSubmit={Submit}>
                       <Form.Group
                         className="mb-4"
                         controlId="formBasicEmail"
@@ -54,6 +76,8 @@ function App() {
                           className="mt-1"
                           placeholder="Enter email"
                           style={{ width: "100%" }}
+                          required
+                          onChange={(e)=>setemail(e.target.value)}
                         />
                       </Form.Group>
 
@@ -67,6 +91,8 @@ function App() {
                           placeholder="Password"
                           className="mt-1"
                           style={{ width: "100%" }}
+                          required
+                          onChange={(e)=>setpassword(e.target.value)}
                         />
                       </Form.Group>
                       <Form.Group
@@ -82,7 +108,6 @@ function App() {
                           borderColor: "black",
                         }}
                         type="submit"
-                        href="/Exp"
                       >
                         Login
                       </Button>

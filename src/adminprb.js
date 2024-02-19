@@ -12,8 +12,15 @@ import Navi from "./aminnav";
 import "./problem.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-
+import { useEffect } from "react";
+import axios from "axios";
 function BasicExample() {
+  const[user,setuser]=useState([])
+  useEffect(()=>{
+    axios.get('http://localhost:3001/user')
+    .then((uss)=>setuser(uss.data))
+    .catch((err)=>console.log(err))
+  })
   return (
     <div>
       <Navi />
@@ -21,27 +28,6 @@ function BasicExample() {
       <Container style={{ marginTop: 50 }}>
        <Row>
         <Col xs={12} md={12}>
-        {/* <Table>
-          <thead>
-            <tr>
-              <th>Name </th>
-              <th>Gmail </th>
-              <th>Contact Number </th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((d, i) => (
-              <tr key={i}>
-                <td>
-                    {d.name}
-                </td>
-                <td>{d.gmail}</td>
-                <td>{d.contact}</td>
-              </tr>
-            ))}
-          </tbody>
-          
-        </Table> */}
         <Table striped bordered hover style={{width:"100%"}}>
       <thead>
         <tr>
@@ -50,10 +36,10 @@ function BasicExample() {
         </tr>
       </thead>
       <tbody>
-      {data.map((d, i) => (
+      {user.map((d, i) => (
         <tr  key={i} >
           <td>{d.name}</td>
-          <td>{d.gmail}</td>
+          <td>{d.email}</td>
         </tr>
          ))}
       </tbody>

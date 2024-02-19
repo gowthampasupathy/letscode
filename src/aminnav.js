@@ -30,7 +30,7 @@ function BasicExample() {
             >
               <Link
                 className="opt"
-                to="/"
+                to="/admin"
                 style={{
                   marginLeft: 20,
                   fontFamily: "initial",

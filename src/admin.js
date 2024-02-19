@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Container from "react-bootstrap/Container";
-import Exp from "./adminexp";
-import Prb from "./adminprb";
+import AExp from "./adminexp";
+import APrb from "./adminprb";
 import Page from "./adminpebpage";
 import Kick from "./adminkick";
 import Start from "./c-starter";
@@ -9,18 +9,18 @@ import Cpp from "./cppcov";
 import Python from "./pycover";
 import Login from "./login";
 import Signup from "./signup";
-import Account from "./adminaccount";
-import Board from "./adminboard";
+import AAccount from "./adminaccount";
+import ABoard from "./adminboard";
 function App() {
   return (
     <>
       <Container>
         <Routes>
           
-          <Route path="/" element={<Exp />}></Route>
-          <Route path="/AdProblem" element={<Prb />}></Route>
-          <Route path="/AdAccount" element={<Account />} />
-          <Route path="/AdBoard" element={<Board />} />
+          <Route path="/admin" element={<AExp />}></Route>
+          <Route path="/AdProblem" element={<APrb />}></Route>
+          <Route path="/AdAccount" element={<AAccount />} />
+          <Route path="/AdBoard" element={<ABoard />} />
           <Route path="/AdProblem/Adsolve" element={<Page />}></Route>
         </Routes>
       </Container>

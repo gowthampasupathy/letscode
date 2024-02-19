@@ -109,8 +109,9 @@ export default class Compiler extends Component {
   };
   render() {
     return (
-      <div className="last1">
-        <Row className="third">
+      <div className="last1" >
+        <Row className="third" data-aos="fade-up"data-aos-duration="1000"
+     data-aos-anchor-placement="center-bottom">
           <Col md={12}>
             <h1>Compiler</h1>
             <h5> Your Gateway to Seamless Coding</h5>
@@ -131,8 +132,8 @@ export default class Compiler extends Component {
           <Card className="text-center" style={{backgroundColor:'orange'}}>
       <Card.Header>
         <Row>
-          <Col xs={12} md={8}><h1 style={{justifyContent:'start',display:'flex',fontWeight:'bolder',}}>Playground </h1> </Col>
-          <Col xs={12} md={2}><div style={{justifyContent:'start',display:'flex',marginRight:50}}> <label htmlFor="tags" className="mr-1">
+          <Col xs={12} md={6}><h1 style={{justifyContent:'start',display:'flex',fontWeight:'bolder',}}>Playground </h1> </Col>
+          <Col xs={12} md={3}><div style={{justifyContent:'start',display:'flex',marginRight:50}}> <label htmlFor="tags" className="mr-1">
               <b className="heading"><h3>Language:</h3></b>
             </label>
             <select
@@ -155,7 +156,7 @@ export default class Compiler extends Component {
               <option value="83">Swift </option>
               <option value="78">Kotlin </option>
             </select></div></Col>
-          <Col xs={12} md={2}><div style={{justifyContent:'start',display:'flex',marginRight:50}}>
+          <Col xs={12} md={2}><div style={{justifyContent:'start',display:'flex',}}>
           <button
               type="submit"
               className="btn  ml-2 mr-2 "
