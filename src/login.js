@@ -14,10 +14,10 @@ function App() {
   const [email,setemail]=useState()
   const [password,setpassword]=useState()
   const navigate=useNavigate()
-  axios.defaults.withCredentials=true
+  //axios.defaults.withCredentials=true
   const Submit =(e)=>{
     e.preventDefault();
-    axios.post("https://lets-code-api.onrender.com/login",{email,password})
+    axios.post("https://lets-code-api.onrender.com/login",{email,password},{withCredentials:true})
     .then(res=>{
       if(res.data.status==="Success"){
         if(res.data.role==="admin"){

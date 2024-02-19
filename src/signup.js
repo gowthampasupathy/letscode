@@ -17,7 +17,7 @@ function App() {
  
   const Submit =(e)=>{
     e.preventDefault();
-    axios.post("http://localhost:3001/register",{name,email,password})
+    axios.post("http://localhost:3001/register",{name,email,password},{withCredentials:true})
     .then(res=>{
       navigate("/login")
       console.log("created")

@@ -27,7 +27,7 @@ function BasicExample() {
     .catch((err)=>console.log(err))
   },[])
   useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/explore')
+    axios.get('https://lets-code-api.onrender.com/explore',{withCredentials:true})
     .then((result)=>{
       if(result.data==="Success"){
         setsuc("Success User")
