@@ -18,11 +18,11 @@ function BasicExample() {
     const[imageurl,setimageurl]=useState();
     const [track,settrack]=useState([])
     const Submit=()=>{
-      axios.post("http://localhost:3001/addtrack",{title,description,imageurl})
+      axios.post("https://lets-code-api.onrender.com/addtrack",{title,description,imageurl})
       .then((res)=>{console.log("added")})
     }
     useEffect(()=>{
-      axios.get('http://localhost:3001/trac')
+      axios.get('https://lets-code-api.onrender.com/trac')
       .then((result)=>settrack(result.data))
       .catch((err)=>console.log(err))
     },[])

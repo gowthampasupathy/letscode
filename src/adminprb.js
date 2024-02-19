@@ -17,7 +17,7 @@ import axios from "axios";
 function BasicExample() {
   const[user,setuser]=useState([])
   useEffect(()=>{
-    axios.get('http://localhost:3001/user')
+    axios.get('https://lets-code-api.onrender.com/user')
     .then((uss)=>setuser(uss.data))
     .catch((err)=>console.log(err))
   })

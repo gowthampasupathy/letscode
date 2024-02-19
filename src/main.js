@@ -22,12 +22,12 @@ function BasicExample() {
   const [track,settrack]=useState([])
   const [suc,setsuc]=useState()
   useEffect(()=>{
-    axios.get('http://localhost:3001/trac')
+    axios.get('https://lets-code-api.onrender.com/trac')
     .then((result)=>settrack(result.data))
     .catch((err)=>console.log(err))
   },[])
   useEffect(()=>{
-    axios.get('http://localhost:3001/explore')
+    axios.get('https://lets-code-api.onrender.com/explore')
     .then((result)=>{
       if(result.data==="Success"){
         setsuc("Success User")

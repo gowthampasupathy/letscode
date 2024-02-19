@@ -38,7 +38,7 @@ function BasicExample() {
   ];
 
   useEffect(()=>{
-    axios.get('http://localhost:3001/dashboard')
+    axios.get('https://lets-code-api.onrender.com/dashboard')
     .then((result)=>{
     if(result.data==="Success"){
         setsuc("Success Admin")
