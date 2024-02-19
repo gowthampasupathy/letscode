@@ -2,7 +2,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "./main.css";
-import React from "react";
+import React, { useState } from "react";
 import logo from "./main.png";
 import clogo from "./clogo.png";
 import jlogo from "./jlogo.jpg";
@@ -21,9 +21,13 @@ import App3 from "./updatemodal";
 import App4 from "./deletemodal";
 import { useNavigate } from "react-router-dom";
 import { orange } from "@mui/material/colors";
+import axios from "axios";
+import { useEffect } from "react";
 //import { LineChart } from '@mui/x-charts/LineChart';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer,Area } from 'recharts';
 function BasicExample() {
+  const navigator=useNavigate();
+  const[suc,setsuc]=useState()
   const data = [
     { name: 1, value: 2 },
     { name: 2, value: 5.5 },
@@ -32,6 +36,17 @@ function BasicExample() {
     { name: 8, value: 1.5 },
     { name: 10, value: 5 },
   ];
+
+  useEffect(()=>{
+    axios.get('http://localhost:3001/dashboard')
+    .then((result)=>{
+    if(result.data==="Success"){
+        setsuc("Success Admin")
+      }else{
+        navigator('/')
+      }
+    }).catch((err)=>console.log(err))
+  })
   return (
     <div>
       <Navi />

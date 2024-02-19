@@ -20,11 +20,22 @@ import axios from 'axios'
 function BasicExample() {
   const navigator =useNavigate();
   const [track,settrack]=useState([])
+  const [suc,setsuc]=useState()
   useEffect(()=>{
     axios.get('http://localhost:3001/trac')
     .then((result)=>settrack(result.data))
     .catch((err)=>console.log(err))
   },[])
+  useEffect(()=>{
+    axios.get('http://localhost:3001/explore')
+    .then((result)=>{
+      if(result.data==="Success"){
+        setsuc("Success User")
+      }else{
+        navigator('/')
+      }
+    }).catch((err)=>console.log(err))
+  })
   return (     
   <div> 
      <Navi/>
