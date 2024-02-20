@@ -27,7 +27,8 @@ function App() {
           console.log(res.data)
           navigate("/Exp")
         }else{
-          navigate("/")
+          console.log(res.data)
+          navigate("/Compiler")
         }
       }
     })
