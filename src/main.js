@@ -31,8 +31,11 @@ function BasicExample() {
     .then((result)=>{
       if(result.data==="Success"){
         setsuc("Success User")
+        console.log("successs"+result.data)
       }else{
+        console.log("faild"+result.data)
         navigator('/Compiler')
+   
       }
     }).catch((err)=>console.log(err))
   })
