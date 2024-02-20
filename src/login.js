@@ -20,10 +20,12 @@ function App() {
     axios.post("https://lets-code-api.onrender.com/login",{email,password},{withCredentials:true})
     .then(res=>{
       if(res.data.status==="Success"){
-        if(res.data.role==="admin"){
+        if(res.data.ad==="admin"){
           navigate("/admin")
-        }else{
+        }else if(res.data.us==="user"){
           navigate("/Exp")
+        }else{
+          navigate("/")
         }
       }
     })
