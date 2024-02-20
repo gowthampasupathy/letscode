@@ -21,10 +21,10 @@ function App() {
     .then(res=>{
       if(res.data.status==="Success"){
         if(res.data.role==="admin"){
-          console.log(res.data.ad)
+          console.log(res.data)
           navigate("/admin")
         }else if(res.data.role==="user"){
-          console.log(res.data.us)
+          console.log(res.data)
           navigate("/Exp")
         }else{
           navigate("/")
