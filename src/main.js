@@ -32,7 +32,7 @@ function BasicExample() {
       if(result.data==="Success"){
         setsuc("Success User")
       }else{
-        navigator('/')
+        navigator('/Compiler')
       }
     }).catch((err)=>console.log(err))
   })
