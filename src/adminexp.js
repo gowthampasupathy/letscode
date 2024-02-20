@@ -23,6 +23,7 @@ import { useNavigate } from "react-router-dom";
 import { orange } from "@mui/material/colors";
 import axios from "axios";
 import { useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 //import { LineChart } from '@mui/x-charts/LineChart';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer,Area } from 'recharts';
 function BasicExample() {
