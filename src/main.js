@@ -26,19 +26,19 @@ function BasicExample() {
     .then((result)=>settrack(result.data))
     .catch((err)=>console.log(err))
   },[])
-  useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/explore',{withCredentials:true})
-    .then((result)=>{
-      if(result.data==="Success"){
-        setsuc("Success User")
-        console.log("successs"+result.data)
-      }else{
-        console.log("faild"+result.data)
-        navigator('/Compiler')
+  // useEffect(()=>{
+  //   axios.get('https://lets-code-api.onrender.com/explore',{withCredentials:true})
+  //   .then((result)=>{
+  //     if(result.data==="Success"){
+  //       setsuc("Success User")
+  //       console.log("successs"+result.data)
+  //     }else{
+  //       console.log("faild"+result.data)
+  //       navigator('/Compiler')
    
-      }
-    }).catch((err)=>console.log(err))
-  })
+  //     }
+  //   }).catch((err)=>console.log(err))
+  // })
   return (     
   <div> 
      <Navi/>

@@ -38,16 +38,16 @@ function BasicExample() {
     { name: 10, value: 5 },
   ];
 
-  useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/dashboard',{withCredentials:true})
-    .then((result)=>{
-    if(result.data==="Success"){
-        setsuc("Success Admin")
-      }else{
-        navigator('/')
-      }
-    }).catch((err)=>console.log(err))
-  })
+  // useEffect(()=>{
+  //   axios.get('https://lets-code-api.onrender.com/dashboard',{withCredentials:true})
+  //   .then((result)=>{
+  //   if(result.data==="Success"){
+  //       setsuc("Success Admin")
+  //     }else{
+  //       navigator('/')
+  //     }
+  //   }).catch((err)=>console.log(err))
+  // })
   return (
     <div>
       <Navi />
