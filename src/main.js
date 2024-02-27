@@ -29,9 +29,9 @@ function BasicExample() {
   useEffect(()=>{
     axios.get('https://lets-code-api.onrender.com/explore',{withCredentials:true})
     .then((result)=>{
-      if(result.data==="Success"){
+      if(result.data.status==="Success"){
         setsuc("Success User")
-        console.log("successs"+result.data)
+        console.log(result.data)
       }else{
         console.log("faild"+result.data)
         navigator('/')
