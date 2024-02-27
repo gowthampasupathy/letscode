@@ -38,7 +38,7 @@ function BasicExample() {
    
       }
     }).catch((err)=>console.log(err))
-  })
+  },[])
   return (     
   <div> 
      <Navi/>
