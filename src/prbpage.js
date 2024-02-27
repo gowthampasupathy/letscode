@@ -3,18 +3,32 @@ import "./main.css";
 import "./prbpage.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import Navi from './nav'
 import lan from "./langdata";
 import Editor from "@monaco-editor/react";
 import Accordion from 'react-bootstrap/Accordion';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import { useEffect } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
+import axios from 'axios'
 
 
+const useHook =()=>{
+  const {problemtitle}=useParams()
+  const [prb,setprb]=useState([])
+  useEffect(()=>{
+    axios.get("https://lets-code-api.onrender.com/getprb/"+problemtitle)
+    .then((result)=>setprb(result.data))
+    .catch((err)=>console.log(err))
+  })
+  return prb;
+}
+ 
 export default class Compiler extends Component {
   constructor(props) {
-    super(props);
+    super(props);    
     this.state = {
       input: localStorage.getItem("input") || ``,
       output: localStorage.getItem("output") || ``,
@@ -138,60 +152,15 @@ export default class Compiler extends Component {
   };
 
   render() {
+    
     return (
       <div>
         <Navi/>
         <div style={{marginTop:90}}>
           <Row style={{paddingLeft:10}}>
             <Col xs={12} md={6} style={{ height: 640, overflowY: "scroll" }}>
-              <h3 style={{ marginTop: 40, paddingBottom: 10 }}>
-                Problem Details{" "}
-              </h3>
-              <h4>Java String Tokens</h4>
-              <p id="description">
-                Given a string, , matching the regular expression [A-Za-z
-                !,?._'@]+, split the string into tokens. We define a token to be
-                one or more consecutive English alphabetic letters. Then, print
-                the number of tokens, followed by each token on a new line.
-              </p>
-              <h5 id="samin">Input Format :</h5>
-              <p>
-                A single string, . Constraints is composed of any of the
-                following: English alphabetic letters, blank spaces, exclamation
-                points (!), commas (,), question marks (?), periods (.),
-                underscores (_), apostrophes ('), and at symbols (@).
-              </p>
-              <h5 id="samout">Output Format</h5>
-              <p>
-                On the first line, print an integer, , denoting the number of
-                tokens in string (they do not need to be unique). Next, print
-                each of the tokens on a new line in the same order as they
-                appear in input string .
-              </p>
-              <h5>Sample Input:</h5>
-              <p style={{ fontWeight: "bold" }}>
-                He is a very very good boy, isn't he?
-              </p>
-              <h5>Sample Output</h5>
-              <p style={{ fontWeight: "bold" }}>
-                {" "}
-                10<br></br>
-                He<br></br>
-                is<br></br>a<br></br>
-                very<br></br>
-                very<br></br>
-                good<br></br>
-                boy<br></br>
-                isn<br></br>t<br></br>
-                he
-              </p>
-              <h5>Explanation</h5>
-              <p>
-                We consider a token to be a contiguous segment of alphabetic
-                characters. There are a total of such tokens in string , and
-                each token is printed in the same order in which it appears in
-                string .
-              </p>
+
+             <HookData/>
             </Col>
             <Col xs={12} md={6} style={{ height: 640,overflowY: "scroll"}}>
               <Container>
@@ -337,4 +306,40 @@ export default class Compiler extends Component {
       </div>
     );
   }
+}
+
+
+const HookData=()=>{
+  const pr=useHook();
+  return (
+    <>
+    <div>
+    {
+      pr.map((d)=>{
+        return <div>
+          <h3 style={{ marginTop: 40, paddingBottom: 10 }}>
+        Problem Details
+      </h3>
+      <h4>{d.problemtitle}</h4>
+      <p id="description">
+       {d.description}
+      </p>
+      <h5>Sample Input:</h5>
+      <p style={{ fontWeight: "bold" }}>
+        {d.sampleinput}
+      </p>
+      <h5>Sample Output</h5>
+      <p style={{ fontWeight: "bold" }}>
+      {d.sampleoutput}
+      </p>
+      <h5>Explanation</h5>
+      <p>
+       {d.explanation}
+      </p>
+        </div>
+      })
+        }
+    </div>
+    </>
+  )
 }

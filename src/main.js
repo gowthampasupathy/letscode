@@ -22,23 +22,23 @@ function BasicExample() {
   const [track,settrack]=useState([])
   const [suc,setsuc]=useState()
   useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/trac')
+    axios.get('http://localhost:3001/trac')
     .then((result)=>settrack(result.data))
     .catch((err)=>console.log(err))
   },[])
-  // useEffect(()=>{
-  //   axios.get('https://lets-code-api.onrender.com/explore',{withCredentials:true})
-  //   .then((result)=>{
-  //     if(result.data==="Success"){
-  //       setsuc("Success User")
-  //       console.log("successs"+result.data)
-  //     }else{
-  //       console.log("faild"+result.data)
-  //       navigator('/Compiler')
+  useEffect(()=>{
+    axios.get('https://lets-code-api.onrender.com/explore',{withCredentials:true})
+    .then((result)=>{
+      if(result.data==="Success"){
+        setsuc("Success User")
+        console.log("successs"+result.data)
+      }else{
+        console.log("faild"+result.data)
+        navigator('/')
    
-  //     }
-  //   }).catch((err)=>console.log(err))
-  // })
+      }
+    }).catch((err)=>console.log(err))
+  })
   return (     
   <div> 
      <Navi/>
@@ -110,7 +110,7 @@ function BasicExample() {
               trk.description
             }
             </Card.Text>
-            <button type='button' class='touch' onClick={()=>navigator("/Exp/cpp")}  ><span>Show<i class="bi bi-chevron-double-right"></i></span></button>
+            <button type='button' class='touch' onClick={()=>navigator(`/Exp/${trk.title}`)}  ><span>Show<i class="bi bi-chevron-double-right"></i></span></button>
           </Card.Body>
         </Card></Col> 
           </div>

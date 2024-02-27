@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Navi from "./nav";
 import Exp from "./main";
 import Prb from "./problem";
-import Page from "./prbpage";
+import Page from "./testprbpage";
 import Kick from "./kickstart";
 import Start from "./c-starter";
 import Cpp from "./tes";
@@ -45,10 +45,10 @@ function App() {
         <Route path="/Compiler" element={<Editor />} />
           <Route path="/Problem/kick" element={<Kick />}></Route>
           <Route path="/Problem/start" element={<Start />}></Route>
-          <Route path="/Problem/cpp" element={<Cpp />}></Route>
-          <Route path="/Exp/cpp" element={<Cpp />}></Route>
+          <Route path="/Problem/:title" element={<Cpp />}></Route>
+          <Route path="/Exp/:title" element={<Cpp />}></Route>
           <Route path="/Problem/python" element={<Python />}></Route>
-          <Route path="/solve" element={<Page />}></Route>
+          <Route path="/solve/:problemtitle" element={<Page />}></Route>
         </Route>
       </Routes>
     </>

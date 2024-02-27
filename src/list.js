@@ -7,7 +7,10 @@ import grp from "./prgname";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import "./list.css";
-const List = ({ name, diif, accp }) => (
+import { useEffect } from "react";
+import axios from "axios";
+import {Link, useNavigate} from 'react-router-dom'
+const List = ({ problemtitle, diff, con }) => (
   <Card
     className="shadow-sm"
     style={{ marginBottom: 10, padding: 10, margin: 20 }}
@@ -16,25 +19,27 @@ const List = ({ name, diif, accp }) => (
       <Row>
         <Col xs={12} md={4}>
           <Card.Text>
-            <h4>{name}</h4>
+            <h4>{problemtitle}</h4>
           </Card.Text>
         </Col>
         <Col xs={12} md={3}>
-          <p>Difficulty: {diif}</p>
+          <p>Difficulty: {diff}</p>
         </Col>
         <Col xs={12} md={3}>
-          <p>Acceptance: {accp}%</p>
+          <p>Concept: {con}</p>
         </Col>
         <Col xs={12} md={2}>
+          <Link to={`/solve/${problemtitle}`}>
           <Button
             style={{
               backgroundColor: "#ff914d",
               borderColor: "#ff914d",
             }}
-            href="/solve"
+            
           >
             S o l v e
           </Button>
+          </Link>
         </Col>
       </Row>
     </Card.Body>
@@ -49,7 +54,8 @@ const CardList = ({ cards }) => (
   </div>
 );
 
-function BasicExample() {
+function BasicExample(props) {
+  const {title}=props
   const [diff, setdiff] = useState("all");
   const handleRadioChange = (event) => {
     setdiff(event.target.value);
@@ -63,13 +69,22 @@ function BasicExample() {
     setcon(event.target.value);
   };
   console.log(diff);
-  const filteredCards = grp.filter((card) => {
+
+  const[prb,setprb]=useState([])
+  useEffect(()=>{
+    axios.get("https://lets-code-api.onrender.com/problem/"+title)
+    .then((res)=>setprb(res.data))
+    .catch((er)=>console.log(er))
+  })
+  const filteredCards = prb.filter((card) => {
     return (
       (diff === "all" || card.diif === diff) &&
       (con === "all" || card.con === con) &&
       (lvl === "all" || card.lvl === lvl)
     );
   });
+ 
+  const navigator =useNavigate();
 
   return (
     <div>

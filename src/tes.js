@@ -6,28 +6,40 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import grp from "./prgname";
 import List from "./list"
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 function BasicExample() {
+  const {title}=useParams()
+  const [head,sethead]=useState([])
+  const [prb,setprb]=useState([])
+  useEffect(()=>{
+    axios.get("https://lets-code-api.onrender.com/prb/"+title).
+    then((res)=>sethead(res.data))
+    .catch(er=>console.log(er))
+  })
+  useEffect(()=>{
+    axios.get("https://lets-code-api.onrender.com/prblist/"+title)
+    .then((res)=>setprb(res.data))
+    .catch(err=>console.log(err))
+  })
   return (
-    <div>
-   <div className="top">
-   <div class="typewriter">
-  <h1 class="typed" style={{letterSpacing:10}}>C++basics </h1>
-</div>
-   </div>
-     
-        <Row>
-          <Col xs={3} md={3}>
-            <Button href="/Problem" variant="outline-dark" style={{ marginTop:10,marginLeft:10 }}>
-          BACK
-        </Button>
-          </Col>
-        </Row>
-        
-      <List/>
-    </div>
+    <>
+    {
+      head.map((d)=>{
+        return <div>
+        <div className="top">
+        <div class="typewriter">
+        <h1 class="typed" style={{letterSpacing:10}}>{d.title} </h1>
+     </div>
+        </div>   
+           <List title={d.title}/>
+         </div>
+      })
+    }
+    </>
   );
 }
 

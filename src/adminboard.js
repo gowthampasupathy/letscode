@@ -16,9 +16,10 @@ function BasicExample() {
     const[title,settitle]=useState();
     const[description,setdescription]=useState();
     const[imageurl,setimageurl]=useState();
+    const[type,settype]=useState();
     const [track,settrack]=useState([])
     const Submit=()=>{
-      axios.post("https://lets-code-api.onrender.com/addtrack",{title,description,imageurl})
+      axios.post("https://lets-code-api.onrender.com/addtrack",{title,description,imageurl,type})
       .then((res)=>{console.log("added")})
     }
     useEffect(()=>{
@@ -36,10 +37,16 @@ function BasicExample() {
     <Form onSubmit={Submit}>
     <Row>
         <Col xs={12} md={4}>
-        <Form.Group className="mb-3">
-        <Form.Label><h5>Tracks Id</h5></Form.Label>
-        <Form.Control placeholder="Enter the Problem Id"  />
-      </Form.Group>
+        <Form.Group>
+          <Form.Label>
+            <h5>Track Type</h5>
+          </Form.Label>
+          <Form.Select onChange={(e)=>settype(e.target.value)}>
+            <option>Select Category</option>
+            <option>Basic Tracks</option>
+            <option>Study Plan</option>
+          </Form.Select>
+        </Form.Group>
 
         </Col>
         <Col xs={12} md={8}>
