@@ -9,8 +9,18 @@ import "../style/list.css";
 import { useEffect } from "react";
 import axios from "axios";
 import {Link, useNavigate} from 'react-router-dom'
-const List = ({ problemtitle, diff, con }) => (
-  <Card
+const List = ({ problemtitle, diff, con,_id,completion,id,}) => {
+  const [buttonname,setbuttonname]=useState("Solve")
+  const [dcolor,setdcolor]=useState("#ff914d")
+ useEffect(()=>{
+  if(completion==1){
+    setbuttonname("Solved")
+    setdcolor("green")
+  }
+ })
+
+   return <div>
+    <Card
     className="shadow-sm"
     style={{ marginBottom: 10, padding: 10, margin: 20 }}
   >
@@ -28,34 +38,36 @@ const List = ({ problemtitle, diff, con }) => (
           <p>Concept: {con}</p>
         </Col>
         <Col xs={12} md={2}>
-          <Link to={`/Exp/solve/${problemtitle}`}>
+          <Link to={`/Exp/${id}/solve/${problemtitle}`} >
           <Button
             style={{
-              backgroundColor: "#ff914d",
-              borderColor: "#ff914d",
+              backgroundColor: dcolor,
+              borderColor: dcolor,
             }}
             
           >
-            S o l v e
+            {buttonname}
           </Button>
           </Link>
         </Col>
       </Row>
     </Card.Body>
   </Card>
-);
+   </div>
+};
 
-const CardList = ({ cards }) => (
+const CardList = ({ cards ,id}) => (
   <div>
     {cards.map((d, i) => (
-      <List key={i} {...d} />
+      <List key={i} {...d} id={id} />
     ))}
   </div>
 );
 
 function BasicExample(props) {
-  const {title}=props
+  const {title,id}=props
   const [diff, setdiff] = useState("all");
+  const [info,setinfo]=useState({})
   const handleRadioChange = (event) => {
     setdiff(event.target.value);
   };
@@ -70,14 +82,23 @@ function BasicExample(props) {
   console.log(diff);
 
   const[prb,setprb]=useState([])
+  // useEffect(()=>{
+  //   axios.get("http://localhost:3001/problem/"+title)
+  //   .then((res)=>setprb(res.data))
+  //   .catch((er)=>console.log(er))
+  // })
   useEffect(()=>{
-    axios.get("http://localhost:3001/problem/"+title)
-    .then((res)=>setprb(res.data))
+    axios.get("https://lets-code-api.onrender.com/info/"+id)
+    .then((res)=>{
+      setinfo(res.data)
+      const prblm=res.data.problem.filter(e=>e.title==title)
+      setprb(prblm)
+    })
     .catch((er)=>console.log(er))
   })
   const filteredCards = prb.filter((card) => {
     return (
-      (diff === "all" || card.diif === diff) &&
+      (diff === "all" || card.diff === diff) &&
       (con === "all" || card.con === con) &&
       (lvl === "all" || card.lvl === lvl)
     );
@@ -129,7 +150,7 @@ function BasicExample(props) {
                 name="lvl"
                 class="input"
                 id="lvl1"
-                value={"Basic"}
+                value={"Basics"}
                 onClick={handlelvlChange}
               />
               <Form.Check
@@ -206,7 +227,7 @@ function BasicExample(props) {
           <Col xs={12} md={9} >
             <Col xs={12} md={12}>
               <div style={{ overflowY: "scroll",width:'100%',height:500 }}>
-              <CardList cards={filteredCards} />
+              <CardList cards={filteredCards} id={id} />
               </div>
               
             </Col>

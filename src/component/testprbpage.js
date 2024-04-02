@@ -14,6 +14,7 @@ import Table from 'react-bootstrap/Table';
 import { Link, useHref, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { HashLink } from 'react-router-hash-link';
+import { useLocation } from "react-router-dom";
 
 
 
@@ -22,50 +23,134 @@ const Compiler = () => {
   const [output, setOutput] = useState(localStorage.getItem("output") || "");
   const [languageId, setLanguageId] = useState(localStorage.getItem("language_Id") || "");
   const [userInput, setUserInput] = useState("");
-  const [lang, setLang] = useState(localStorage.getItem("lang") || "");
-  const [col, setCol] = useState('white');
-  const [drf, setDrf] = useState(localStorage.getItem("drf") || "");
-  const { problemtitle } = useParams();
-  const [prb, setprb] = useState({});
+  const [lang, setLang] = useState( "");
+  const [col, setCol] = useState(['white','white','white']);
+  const [drf, setDrf] = useState( "");
+  const [collo, setCollo] = useState(['white', 'white', 'white']); 
+  const [color, setColor] = useState(['black', 'black', 'black','black','black']); 
+  const{id}=useParams();
+  const{problemtitle}=useParams();
+  const [prb, setprb] = useState([]);
+  const detail={};
   const[test,settest]=useState([])
+  const[hiddentestcase,sethiddentestcase]=useState([])
   const[submission,setsubmission]=useState([])
   const[sts,setsts]=useState("Rejected")
   const[time,settime]=useState(localStorage.getItem("time") || "")
   const[space,setspace]=useState(localStorage.getItem("space") || "")
   const[key,setkey]=useState(0)
   const navigator = useNavigate();
-  useEffect(() => {
-    axios.get("http://localhost:3001/getprb/" + problemtitle)
-      .then((result) => {
-        setprb(result.data);
-        settest(result.data.testcase);
-      }).catch((err) => console.log(err));
-      
-  }, );
+  const [info,setinfo]=useState({})
+  const [det,setdet]=useState([])
+   const[submitdetails,setsubmitdetails]=useState([])
+   const [val, setVal] = useState({});
+  const prbid=problemtitle;
+  const [buttoncurser,setbuttoncurser]=useState("pointer")
+  const [buttonopacity,setbuttonopacity]=useState(10)
+  const[successscount,setsuccesscount]=useState(0)
+  const[correctcount,setcorrectcount]=useState(0)
+  const[count,setcount]=useState(0)
+  const [buttondisplay,setbuttondisplay]=useState("none")
+  const[error,seterror]=useState("")
+  const[solution,setsolution]=useState({})
+  const[buttonval,setbuttonval]=useState([])
+  useEffect(()=>{
+    axios.get(`https://lets-code-api.onrender.com/getprbdetail/${id}/${prbid}`,)
+    .then((res)=>{
+      setVal(res.data)
+    })
+    .catch((er)=>console.log(er))
+  },)
+  useEffect(()=>{
+    axios.get(`https://lets-code-api.onrender.com/getprbtestcase/${id}/${prbid}`,)
+    .then((res)=>{
+      settest(res.data)
+    })
+    .catch((er)=>console.log(er))
+  },[])
+  useEffect(()=>{
+    axios.get(`https://lets-code-api.onrender.com/getprbhiddentestcase/${id}/${prbid}`,)
+    .then((res)=>{
+      sethiddentestcase(res.data)
+    })
+    .catch((er)=>console.log(er))
+  },[])
 
-  const handleadd=()=>{
-    setsubmission(...submission,[{
-      title:problemtitle,
-      status:sts,
-      code:input,
-      language:lang,
-      space:space,
-      time:time,
-    }])
+ useEffect(()=>{
+  if(val.completion==1){
+    axios.get(`https://lets-code-api.onrender.com/getsolution/${id}/${prbid}`,)
+  .then((res)=>{
+    setsolution(res.data)
+    setDrf(res.data.code)
+    // setsubmission(val.solutions)
+  })
+  .catch((er)=>console.log(er))
   }
 
+ })
+ useEffect(()=>{
+  if(val.completion==1){
+    setsubmission(val.solutions)
+    
+  }
+  
+ })
+
+ useEffect(()=>{
+  if(val.language=="all"){
+    setbuttonval(lan)
+  }else{
+    const button=lan.filter((d)=>d.name==val.language);
+  setbuttonval(button)
+  button.map((d)=>{
+    setDrf(d.def)
+    setLang(d.name)
+  })
+  
+  }
+ })
+
+  const handleadd=( timecom,spacecom,status,output,input,lang,expeactedoutput)=>{
+    setsubmitdetails(prevState => [
+      ...prevState,
+      {
+        title: val.problemtitle,
+        status: status,
+        code: input,
+        expectedoutput:expeactedoutput,
+        output:output,
+        langused: lang,
+        timecomp: timecom,
+        spacecomp: spacecom,
+      }
+    ]); 
+  }
+  const handleaddsubmit=( timecom,spacecom,status,output,input,lang,expeactedoutput)=>{
+    setcount(prevCount => prevCount + 1);
+    setsubmission(prevState => [
+      ...prevState,
+      {
+        title: val.problemtitle,
+        status: status,
+        code: input,
+        expectedoutput:expeactedoutput,
+        output:output,
+        langused: lang,
+        timecomp: timecom,
+        spacecomp: spacecom,
+      }
+    ]); 
+  }
   const handleInput = (value) => {
     setInput(value);
     localStorage.setItem("input", value);
   };
-  const handle=()=>{
-    setkey(1)
-  }
-  const handleUserInput = (event) => {
-    navigator("#res")
+
+  const handleUserInput = async (event) => {
+    event.preventDefault();
+    submitdetails.splice(0,submitdetails.length)
    for(let i=0;i<test.length;i++){
- 
-    handleSubmit(i)
+    await handleRun (i)
    }
   };
 
@@ -78,14 +163,13 @@ const Compiler = () => {
       setLang(selectedLang.name);
       localStorage.setItem("lang", selectedLang.name);
       setDrf(selectedLang.def);
-      localStorage.setItem("drf", selectedLang.def);
-      // window.location.reload();
+      
+      //  window.location.reload();
     }
   };
 
-  const handleSubmit = async (i) => {
-    console.log(i);
-    console.log(userInput);
+//Run code evaluation
+  const handleRun = async (i) => {
     let inputval=document.getElementById(`input${i}`).value;
     let expecoutput=document.getElementById(`expecoutput${i}`).value;
     // setUserInput(inputval)
@@ -93,20 +177,19 @@ const Compiler = () => {
     outputText.innerHTML = "";
     outputText.innerHTML += "Creating Submission ...\n";
     try {
-      const response = await axios.post("https://judge0-ce.p.rapidapi.com/submissions", {
+      const response = await axios.post("http://172.16.100.31:8899/submissions", {
         source_code: input,
         stdin: inputval,
         language_id: languageId,
-      }, {
+      },{
         headers: {
-          "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
-          "x-rapidapi-key":
-            "c5a1c71df8mshb41a4da9e4c3c46p18b2fcjsn7cf2e291a23f", 
+          // "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
+          // "x-rapidapi-key":
+          //   "8d128b0bf9msh5f96c0d59679f5fp182c7ejsn64644077f373", 
           "content-type": "application/json",
           accept: "application/json",
         }
       });
-
       outputText.innerHTML += "Submission Created ...\n";
       let jsonGetSolution = {
         status: { description: "Queue" },
@@ -120,12 +203,12 @@ const Compiler = () => {
         jsonGetSolution.compile_output == null) {
         outputText.innerHTML = `Creating Submission ... \nSubmission Created ...\nChecking Submission Status\nstatus : ${jsonGetSolution.status.description}`;
         if (jsonResponse.token) {
-          const url = `https://judge0-ce.p.rapidapi.com/submissions/${jsonResponse.token}?base64_encoded=true`;
+          const url = `http://172.16.100.31:8899/submissions/${jsonResponse.token}?base64_encoded=true`;
           const getSolution = await axios.get(url, {
             headers: {
-              "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
-              "x-rapidapi-key":
-                "c5a1c71df8mshb41a4da9e4c3c46p18b2fcjsn7cf2e291a23f", 
+              // "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
+              // "x-rapidapi-key":
+              //   "8d128b0bf9msh5f96c0d59679f5fp182c7ejsn64644077f373", 
               "content-type": "application/json",
             },
           });
@@ -136,25 +219,34 @@ const Compiler = () => {
       if (jsonGetSolution.stdout) {
         const output = atob(jsonGetSolution.stdout);
         const test = "100";
-        const wcolor = "#008000";
-        const color = "#FF0000";
+        const ricolor = "#00FF00";
+        const wrcolor = "#FF0000";
 
         outputText.innerHTML = "";
-        outputText.innerHTML += `Results :\n${output}\nExecution Time : ${jsonGetSolution.time} Secs\nMemory used : ${jsonGetSolution.memory} bytes`;
+        outputText.innerHTML += `Results :\n${output}`;
+        //outputText.innerHTML += `Results :\n${output}\nExecution Time : ${jsonGetSolution.time} Secs\nMemory used : ${jsonGetSolution.memory} bytes`;
         localStorage.setItem("output", output);      
         if ( output.trim()===expecoutput) {
-          setCol(wcolor);
-          localStorage.setItem("col", wcolor);
+          setCollo(prevCollo => {
+            const newCollo = [...prevCollo];
+            newCollo[i] = '#00FF00'; 
+            return newCollo;
+        });
           localStorage.setItem("space", jsonGetSolution.memory);
           localStorage.setItem("time", jsonGetSolution.time);
           setsts("Accepted")
-          handleadd();
-          console.log(submission)
-          
+          const status="Accepted"
+          setsuccesscount(prevCount => prevCount + 1)
+          handleadd(jsonGetSolution.time,jsonGetSolution.memory,status,output.trim(),input,lang,expecoutput);
         } else {
-          setCol(color);
-          localStorage.setItem("col", color);
-          
+          setCollo(prevCollo => {
+            const newCollo = [...prevCollo];
+            newCollo[i] = '#FF0000'; 
+            return newCollo;
+        });
+        let status="Rejected"
+        //handleaddsubmit(jsonGetSolution.time,jsonGetSolution.memory,status,output,input,lang,expecoutput);
+        handleadd(jsonGetSolution.time,jsonGetSolution.memory,status,output.trim(),input,lang,expecoutput);
         }
 
       } else if (jsonGetSolution.stderr) {
@@ -170,9 +262,149 @@ const Compiler = () => {
     } catch (error) {
       console.log(error);
     }
+  
   };
+  // Submit Code Evaluation
+  const handleSubmit = async (i) => {
+    let inputval=hiddentestcase[i].input;
+    let expecoutput=hiddentestcase[i].output;
+    // let outputText = document.getElementById(`output${i}`);
+    // outputText.innerHTML = "";
+    // outputText.innerHTML += "Creating Submission ...\n";
+    try {
+      const response = await axios.post("http://172.16.100.31:8899/submissions", {
+        source_code: input,
+        stdin: inputval,
+        language_id: languageId,
+      },{
+        headers: {
+          // "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
+          // "x-rapidapi-key":
+          //   "c5a1c71df8mshb41a4da9e4c3c46p18b2fcjsn7cf2e291a23f", 
+          "content-type": "application/json",
+          accept: "application/json",
+        }
+      });
+      // outputText.innerHTML += "Submission Created ...\n";
+      let jsonGetSolution = {
+        status: { description: "Queue" },
+        stderr: null,
+        compile_output: null,
+      };
+      const jsonResponse = response.data;
 
-  return (
+      while (jsonGetSolution.status.description !== "Accepted" &&
+        jsonGetSolution.stderr == null &&
+        jsonGetSolution.compile_output == null) {
+        //outputText.innerHTML = `Creating Submission ... \nSubmission Created ...\nChecking Submission Status\nstatus : ${jsonGetSolution.status.description}`;
+        if (jsonResponse.token) {
+          const url = `http://172.16.100.31:8899/submissions/${jsonResponse.token}?base64_encoded=true`;
+          const getSolution = await axios.get(url, {
+            headers: {
+              // "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
+              // "x-rapidapi-key":
+              //   "c5a1c71df8mshb41a4da9e4c3c46p18b2fcjsn7cf2e291a23f", 
+              "content-type": "application/json",
+            },
+          });
+          jsonGetSolution = getSolution.data;
+        }
+      }
+
+      if (jsonGetSolution.stdout) {
+        const output = atob(jsonGetSolution.stdout);
+        const test = "100";
+        const ricolor = "#00FF00";
+        const wrcolor = "#FF0000";
+
+       // outputText.innerHTML = "";
+        //outputText.innerHTML += `Results :\n${output}`;
+        //outputText.innerHTML += `Results :\n${output}\nExecution Time : ${jsonGetSolution.time} Secs\nMemory used : ${jsonGetSolution.memory} bytes`;
+        //localStorage.setItem("output", output);      
+        if ( output.trim()===expecoutput) {
+          setColor(prevCollo => {
+            const newCollo = [...prevCollo];
+            newCollo[i] = '#00FF00'; 
+            return newCollo;
+        });
+          // localStorage.setItem("space", jsonGetSolution.memory);
+          // localStorage.setItem("time", jsonGetSolution.time);
+          // setsts("Accepted")
+          // setsuccesscount(i)
+          
+          let status="Accepted"
+          setcorrectcount(prevCount => prevCount + 1);
+
+          handleaddsubmit(jsonGetSolution.time,jsonGetSolution.memory,status,output.trim(),input,lang,expecoutput);
+          handleadd(jsonGetSolution.time,jsonGetSolution.memory,status,output.trim(),input,lang,expecoutput);
+        } else {
+          setColor(prevCollo => {
+            const newCollo = [...prevCollo];
+            newCollo[i] = '#FF0000'; 
+            return newCollo;
+        });
+        let status="Rejected"
+        handleaddsubmit(jsonGetSolution.time,jsonGetSolution.memory,status,output.trim(),input,lang,expecoutput);
+        handleadd(jsonGetSolution.time,jsonGetSolution.memory,status,output.trim(),input,lang,expecoutput);
+
+        }}
+
+      //  else if (jsonGetSolution.stderr) {
+      //   const error = atob(jsonGetSolution.stderr);
+      //   outputText.innerHTML = "";
+      //   outputText.innerHTML += `\n Error :${error}`;
+      // } else {
+      //   const compilation_error = atob(jsonGetSolution.compile_output);
+      //   outputText.innerHTML = "";
+      //   outputText.innerHTML += `\n Error :${compilation_error}`;
+      // }
+
+    } catch (error) {
+      console.log(error);
+    }
+  
+  };
+  const handlemain=async()=>{
+    await handle()
+    handledataup()
+  }
+  const handledataup=()=>{
+    setbuttondisplay(" ")
+  }
+
+    const handle=async()=>{
+      submission.splice(0,submission.length)
+      setkey(1)
+   for(let i=0;i<hiddentestcase.length;i++){
+   await handleSubmit(i);
+   }
+
+    // if(correctcount+successscount==8){
+    //   alert("ok")
+    // }
+    
+
+  }
+  const handleStore=()=>{
+    if(correctcount+successscount==8){
+      const complete=1;
+      axios.put(`https://lets-code-api.onrender.com/updatesolution/${id}/${prbid}`,{submitdetails,complete})
+      .then((res)=>{console.log(res.data)
+        setbuttondisplay("none")})
+      .catch((er)=>console.log(er))
+      
+     
+    }else{
+      seterror("*Please Clear All The Testcase To Store The Submission*")
+
+    }
+   }
+
+
+
+
+
+  return  (
     <div>
       <Navi />
       <div style={{ marginTop: 90 }}>
@@ -191,17 +423,18 @@ const Compiler = () => {
       <Tab eventKey={0} title={"Description"} style={{height:640,width:'100%',backgroundColor: "white",marginTop:-20,color: col,overflowY: "scroll",color:'black'}} >
       <div>
             {
-                <div >
-                <h3 style={{ marginTop: 40, paddingBottom: 10 }}>Problem Details</h3>
-                <h4>{prb.problemtitle}</h4>
-                <p id="description">{prb.description}</p>
-                <h5>Sample Input:</h5>
-                <p style={{ fontWeight: "bold" }}>{prb.sampleinput}</p>
-                <h5>Sample Output</h5>
-                <p style={{ fontWeight: "bold" }}>{prb.sampleoutput}</p>
-                <h5>Explanation</h5>
-                <p>{prb.explanation}</p>
-              </div>
+                   <div >
+                  <h3 style={{ marginTop: 40, paddingBottom: 10 }}>Problem Details</h3>
+                  <h4>{val.problemtitle}</h4>
+                  <p id="description">{val.description}</p>
+                  <h5>Sample Input:</h5>
+                  <p style={{ fontWeight: "bold" }}>{val.sampleinput}</p>
+                  <h5>Sample Output</h5>
+                  <p style={{ fontWeight: "bold" }}>{val.sampleoutput}</p>
+                  <h5>Explanation</h5>
+                  <p>{val.explanation}</p>
+                </div>
+                
             }
     </div>
             
@@ -211,7 +444,8 @@ const Compiler = () => {
       <div>
       <Table striped bordered hover style={{marginTop:50}}>
       <thead>
-        <tr>
+        <tr  >
+          <th >TestCase</th>
           <th>Status</th>
           <th>Language Used</th>
           <th>Time Complexity</th>
@@ -219,14 +453,21 @@ const Compiler = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>{sts}</td>
-          <td>{lang}</td>
-          <td>{time}</td>
-          <td>{space}</td>
+       {
+         submission.map((e,i)=>{
+          return <tr  >
+            <td >{i+1}</td>
+          <td style={{color:color[i]}} >{e.status}</td>
+          <td >{e.langused}</td>
+          <td >{e.timecomp}</td>
+          <td>{e.spacecomp}</td>
         </tr>
+         })
+       }
       </tbody>
     </Table>
+    <button onClick={handleStore}  className="btn  ml-2 mr-2 " style={{backgroundColor:'#1e1e1e',color:'white',borderRadius:5,display:buttondisplay}}>Click To Store Submission</button>
+    <p style={{color:'red',marginTop:10,padding:5}}>{error}</p>
 
     </div>
     </div>
@@ -250,7 +491,7 @@ const Compiler = () => {
               style={{backgroundColor:'#272822',borderColor:'#272822',width:200,marginRight:20,color:'white'}}
              
             >
-              <option value="50">C</option>
+              {/* <option value="50">C</option>
               <option value="54">C++</option>
               <option value="62">Java</option>
               <option value="71">Python </option>
@@ -259,7 +500,14 @@ const Compiler = () => {
               <option value="73">Rust </option>
               <option value="72">Ruby </option>
               <option value="83">Swift </option>
-              <option value="78">Kotlin </option>
+              <option value="78">Kotlin </option> */}
+              {
+                 buttonval.map((d)=>{
+                  return<>
+                  <option value={d.id}>{d.name}</option>
+                  </>
+                 })
+              }
             </select></div></Col>
           <Col xs={12} md={3}><div style={{display:'flex',}}>
           <button
@@ -267,7 +515,7 @@ const Compiler = () => {
               
               className="btn  ml-2 mr-2 "
               onClick={handleUserInput}
-              style={{backgroundColor:'#1e1e1e',borderColor:'#1e1e1e',color:'white' ,width:150}}
+              style={{backgroundColor:'#1e1e1e',borderColor:'#1e1e1e',color:'white' ,width:150,cursor:buttoncurser,opacity:buttonopacity}}
             >
               <HashLink to={"#res"} style={{textDecoration:'none',color:'white'}}>Run</HashLink>
             </button></div></Col>
@@ -275,7 +523,7 @@ const Compiler = () => {
           <button
               type="submit"
               className="btn  ml-2 mr-2 "
-              onClick={handle}
+              onClick={handlemain}
               style={{backgroundColor:'#1e1e1e',borderColor:'#1e1e1e',color:'white' ,width:150}}
             >
               Submit
@@ -311,27 +559,26 @@ const Compiler = () => {
     >
     {
         test.map((d,i)=>{
-            return <Tab key={i} eventKey={i} title={`Test Case ${i+1}`} style={{height:300,width:'100%',backgroundColor: "#1e1e1e",marginTop:-20,color: col,overflowY: "scroll",}} >
+            return <Tab key={i} eventKey={i} title={`Test Case ${i+1}`} style={{height:300,width:'100%',backgroundColor: "#1e1e1e",marginTop:-20,color: collo[i],overflowY: "scroll",}} >
             <p style={{marginTop:20,padding:20}} >
               <h5>Input</h5>
               {/* <p > {d.input}</p> */}
               <textarea id={`input${i}`} 
                   rows={2} value={d.input} style={{backgroundColor: "#1e1e1e",
-                        color: col, overflowY:'hidden',resize:'none',width:"100%"}}></textarea>
+                        color: collo[i], overflowY:'hidden',resize:'none',width:"100%"}}></textarea>
               <h5>Expected Output</h5>
-              <p  style={{color:col}}>
+              <p  style={{color:collo[i]}}>
               <Container>
               <textarea id={`expecoutput${i}`} 
                   rows={2} value={d.output} style={{backgroundColor: "#1e1e1e",
-                  color: col,overflowY: "hidden" ,resize:'none',width:"100%"}} ></textarea>
+                  color: collo[i],overflowY: "hidden" ,resize:'none',width:"100%"}} ></textarea>
               </Container>
-                     
                     </p>
                     <h5  style={{display:'flex',justifyContent:'start',marginTop:30}} >Your Output</h5>
               <Container>
               <textarea id={`output${i}`} 
                   rows={5} placeholder="Your Output Will Be Displayed Here" style={{backgroundColor: "#1e1e1e",
-                  color: col,overflowY: "hidden" ,resize:'none',width:"100%"}} ></textarea>
+                  color: collo[i],overflowY: "hidden" ,resize:'none',width:"100%"}} ></textarea>
               </Container>
             </p>
         </Tab>

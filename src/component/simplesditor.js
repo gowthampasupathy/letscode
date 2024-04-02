@@ -25,10 +25,21 @@ const Compiler = () => {
   const[time,settime]=useState(localStorage.getItem("time") || "")
   const[space,setspace]=useState(localStorage.getItem("space") || "")
   const[key,setkey]=useState(0)
-  const[email,setemail]=useState()
   const navigator = useNavigate();
+  const[email,setemail]=useState()
+  const[id,setid]=useState(localStorage.getItem("id")||"")
+  const [userinfo,setuserinfo]=useState({})
   useEffect(()=>{
-    axios.get('http://localhost:3001/explore',{withCredentials:true})
+    axios.get('https://lets-code-api.onrender.com/getinfo/'+email)
+    .then((result)=>{
+      setuserinfo(result.data)
+     setid(userinfo[0]._id)
+     localStorage.setItem("id",userinfo[0]._id)
+    })
+    .catch((er)=>console.log(er))
+  })
+  useEffect(()=>{
+    axios.get('https://lets-code-api.onrender.com/explore',{withCredentials:true})
     .then((result)=>{
         setemail(result.data.email)
     }).catch((err)=>console.log(err))
@@ -71,15 +82,15 @@ const Compiler = () => {
     outputText.innerHTML = "";
     outputText.innerHTML += "Creating Submission ...\n";
     try {
-      const response = await axios.post("https://judge0-ce.p.rapidapi.com/submissions", {
+      const response = await axios.post("http://172.16.100.31:8899/submissions", {
         source_code: input,
         stdin: userInput,
         language_id: languageId,
       }, {
         headers: {
-          "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
-          "x-rapidapi-key":
-            "c5a1c71df8mshb41a4da9e4c3c46p18b2fcjsn7cf2e291a23f", 
+          // "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
+          // "x-rapidapi-key":
+          //   "c5a1c71df8mshb41a4da9e4c3c46p18b2fcjsn7cf2e291a23f", 
           "content-type": "application/json",
           accept: "application/json",
         }
@@ -98,12 +109,12 @@ const Compiler = () => {
         jsonGetSolution.compile_output == null) {
         outputText.innerHTML = `Creating Submission ... \nSubmission Created ...\nChecking Submission Status\nstatus : ${jsonGetSolution.status.description}`;
         if (jsonResponse.token) {
-          const url = `https://judge0-ce.p.rapidapi.com/submissions/${jsonResponse.token}?base64_encoded=true`;
+          const url = `http://172.16.100.31:8899/submissions/${jsonResponse.token}?base64_encoded=true`;
           const getSolution = await axios.get(url, {
             headers: {
-              "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
-              "x-rapidapi-key":
-                "c5a1c71df8mshb41a4da9e4c3c46p18b2fcjsn7cf2e291a23f", 
+              // "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
+              // "x-rapidapi-key":
+              //   "c5a1c71df8mshb41a4da9e4c3c46p18b2fcjsn7cf2e291a23f", 
               "content-type": "application/json",
             },
           });
@@ -139,7 +150,7 @@ const Compiler = () => {
     return (
       <>
       <div className="main">
-      <Navi email={email} />
+      <Navi id={id} />
     <div style={{marginTop:100}}>
     <Card className="text-center">
       <Card.Header>

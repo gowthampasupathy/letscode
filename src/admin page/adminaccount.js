@@ -24,22 +24,32 @@ function BasicExample() {
   const[con,setconcept]=useState()
   const[ts1in,setts1in]=useState()
   const[ts1out,setts1out]=useState()
+  const[hiddents1in,sethiddents1in]=useState()
+  const[hiddents1out,sethiddents1out]=useState()
   const [prb,setprb]=useState([])
   const[testcase,settestcase]=useState([])
+  const[hiddentestcase,sethiddentestcase]=useState([])
+  const[lang,setlang]=useState(" ")
+  const[time,settime]=useState(" ")
+  const[space,setspace]=useState(" ")
+  const[output,setoutput]=useState(" ")
+  const[code,setcode]=useState(" ")
+  
+
  
   useEffect(()=>{
-    axios.get("http://localhost:3001/getprb")
+    axios.get("https://lets-code-api.onrender.com/getprb")
     .then((pr)=>setprb(pr.data))
     .catch((er)=>console.log(er))
   })
   useEffect(()=>{
-    axios.get("http://localhost:3001/cat")
+    axios.get("https://lets-code-api.onrender.com/cat")
     .then((res)=>setcategory(res.data))
     .catch(errr=>console.log(errr))
    
   },[])
   const submit=()=>{
-    axios.post("http://localhost:3001/addproblem",{title,problemtitle,description,sampleinput,sampleoutput,explanation,diff,con,lvl,testcase})
+    axios.post("https://lets-code-api.onrender.com/addproblem",{title,problemtitle,description,sampleinput,sampleoutput,explanation,diff,con,lvl,testcase,hiddentestcase})
     .then((res)=>console.log("problem added"))
     .catch((err)=>console.log(err))
   }
@@ -47,6 +57,20 @@ function BasicExample() {
     settestcase([...testcase,{
       input:ts1in,
       output:ts1out
+    }])
+
+  }
+  const handledelete=(id)=>{
+    axios.delete("https://lets-code-api.onrender.com/deleteproblem/"+id)
+    .then((res)=>{
+      console.log(res.data)
+      window.location.reload()})
+    .catch((er)=>console.log(er))
+  }
+  const handleaddhiddden=(e)=>{
+    sethiddentestcase([...hiddentestcase,{
+      hiddeninput:hiddents1in,
+      hiddenoutput:hiddents1out,
     }])
 
   }
@@ -60,9 +84,9 @@ function BasicExample() {
 <Card className="shadow-sm" style={{padding:20}}>
 <Row>
 <Col xs={12} md={12}>
-<Form.Group className="mb-3">
+<Form.Group className="mb-3" >
 <Form.Label><h5>Problem Title</h5></Form.Label>
-<Form.Control placeholder="Enter the Problem Title" onChange={(e)=>setprbtitle(e.target.value)} >
+<Form.Control required placeholder="Enter the Problem Title" onChange={(e)=>setprbtitle(e.target.value)} >
 </Form.Control>
 </Form.Group>
 </Col>
@@ -72,7 +96,7 @@ function BasicExample() {
   <Form.Label>
     <h5>Description</h5>
   </Form.Label>
-  <Form.Control placeholder="Enter the Description" as="textarea" rows={3} onChange={(e)=>setdescription(e.target.value)} ></Form.Control>
+  <Form.Control required placeholder="Enter the Description" as="textarea" rows={3} onChange={(e)=>setdescription(e.target.value)} ></Form.Control>
 </Form.Group>
 </Row>
 <Row style={{marginTop:20}}>
@@ -81,7 +105,7 @@ function BasicExample() {
     <Form.Label>
       <h5>Sample Input</h5>
     </Form.Label>
-    <Form.Control placeholder="Enter the sample input" as="textarea" rows={3} onChange={(e)=>setsampleinput(e.target.value)}></Form.Control>
+    <Form.Control required placeholder="Enter the sample input" as="textarea" rows={3} onChange={(e)=>setsampleinput(e.target.value)}></Form.Control>
   </Form.Group>
 </Col>
 <Col xs={12} md={6}>
@@ -89,7 +113,7 @@ function BasicExample() {
     <Form.Label>
       <h5>Sample Output</h5>
     </Form.Label>
-    <Form.Control placeholder="Enter the sample output" as="textarea" rows={3} onChange={(e)=>setsampleoutput(e.target.value)}></Form.Control>
+    <Form.Control required placeholder="Enter the sample output" as="textarea" rows={3} onChange={(e)=>setsampleoutput(e.target.value)}></Form.Control>
   </Form.Group>
 </Col>
 </Row>
@@ -99,10 +123,24 @@ function BasicExample() {
   <Form.Label>
     <h5>Test Case </h5>
   </Form.Label>
-  <Form.Control  placeholder="Enter the Input" as="textarea" rows={3} onChange={(e)=>setts1in(e.target.value)} ></Form.Control>
-  <Form.Control placeholder="Enter the Output"  style={{marginTop:20}} as="textarea" rows={3} onChange={(e)=>setts1out(e.target.value)} ></Form.Control>
+  <Form.Control required  placeholder="Enter the Input" as="textarea" rows={3} onChange={(e)=>setts1in(e.target.value)} ></Form.Control>
+  <Form.Control required placeholder="Enter the Output"  style={{marginTop:20}} as="textarea" rows={3} onChange={(e)=>setts1out(e.target.value)} ></Form.Control>
 </Form.Group>
 <Button variant="outline-dark" style={{marginTop:30}} onClick={handleadd}>Add TestCase</Button>
+</Col>
+
+
+</Row>
+<Row style={{marginTop:20}}>
+<Col xs={12} md={12}>
+<Form.Group>
+  <Form.Label>
+    <h5>Hidden Test Case </h5>
+  </Form.Label>
+  <Form.Control required  placeholder="Enter the Input" as="textarea" rows={3} onChange={(e)=>sethiddents1in(e.target.value)} ></Form.Control>
+  <Form.Control required placeholder="Enter the Output"  style={{marginTop:20}} as="textarea" rows={3} onChange={(e)=>sethiddents1out(e.target.value)} ></Form.Control>
+</Form.Group>
+<Button variant="outline-dark" style={{marginTop:30}} onClick={handleaddhiddden}>Add Hidden  TestCase</Button>
 </Col>
 
 
@@ -112,7 +150,7 @@ function BasicExample() {
   <Form.Label>
     <h5>Explanation</h5>
   </Form.Label>
-  <Form.Control placeholder="Enter the Explanation"  as="textarea" rows={3} onChange={(e)=>setexplanation(e.target.value)} ></Form.Control>
+  <Form.Control required placeholder="Enter the Explanation"  as="textarea" rows={3} onChange={(e)=>setexplanation(e.target.value)} ></Form.Control>
 </Form.Group>
 </Row>
 <Row style={{marginTop:20}}>
@@ -121,7 +159,7 @@ function BasicExample() {
   <Form.Label>
     <h5>Tracks</h5>
   </Form.Label>
-  <Form.Select onChange={(e)=>settitle(e.target.value)}>
+  <Form.Select required onChange={(e)=>settitle(e.target.value)}>
     <option>Select Track</option>
     <option>General</option>
    {
@@ -137,7 +175,7 @@ function BasicExample() {
   <Form.Label>
     <h5>Level</h5>
   </Form.Label>
-  <Form.Select onChange={(e)=>setlevel(e.target.value)}>
+  <Form.Select required onChange={(e)=>setlevel(e.target.value)}>
     <option>Select Level</option>
     <option>Basics</option>
     <option>Intermediate</option>
@@ -150,7 +188,7 @@ function BasicExample() {
   <Form.Label>
     <h5>Difficulty</h5>
   </Form.Label>
-  <Form.Select onChange={(e)=>setdiff(e.target.value)}>
+  <Form.Select required onChange={(e)=>setdiff(e.target.value)}>
     <option>Select Difficulty</option>
     <option>Easy</option>
     <option>Medium</option>
@@ -163,7 +201,7 @@ function BasicExample() {
   <Form.Label>
     <h5>Concept</h5>
   </Form.Label>
-  <Form.Select onChange={(e)=>setconcept(e.target.value)}>
+  <Form.Select required onChange={(e)=>setconcept(e.target.value)}>
     <option>Select Concept</option>
     <option>Array</option>
     <option>String</option>
@@ -203,7 +241,7 @@ function BasicExample() {
       <tr key={i} >
         <td>{d.problemtitle}</td>
         <td>{d.title}</td>
-        <td><Button variant="outline-dark">Remove</Button></td>
+        <td><Button variant="outline-dark" onClick={(e)=>handledelete(d._id)}>Remove</Button></td>
       </tr>
     ))
   }

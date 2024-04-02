@@ -35,12 +35,14 @@ function App() {
       <Routes>
         <Route element={<Check/>}>
         <Route path="/Exp" element={<Exp />}></Route>
-        <Route path="/Exp/:title" element={<Cpp />}></Route>
-        <Route path="/Exp/solve/:problemtitle" element={<Page />}></Route>
+        <Route path="/Exp/:id/:title" element={<Cpp />}></Route>
+        <Route path="/Problem/:title" element={<Cpp />}></Route>
+        <Route path="/Exp/:id/solve/:problemtitle" element={<Page />}></Route>
+        <Route path="/Problem/:id/solve/:problemtitle" element={<Page />}></Route>
         <Route path="/Compiler" element={<Editor />} />
-        <Route path="/Board" element={<Board />} />
+        {/* <Route path="/Board" element={<Board />} /> */}
         <Route path="/Problem" element={<Prb />} />
-        <Route path="/Account/:email" element={<Account />} />
+        <Route path="/Account/:id" element={<Account />} />
         </Route>
       </Routes>
     </>

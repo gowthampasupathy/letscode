@@ -17,31 +17,54 @@ import axios from "axios";
 function BasicExample() {
   const [alltop, setalltop] = useState("all");
   const [search, setsearch] = useState("");
-  const[email,setemail]=useState()
   const[plan,setplan]=useState([]);
+  const [problem,setproblem]=useState([])
+  const[email,setemail]=useState()
+  const[id,setid]=useState(localStorage.getItem("id")||"")
+  const [userinfo,setuserinfo]=useState({})
+  const [generalproblem,setgeneralproblem]=useState([])
   useEffect(()=>{
-    axios.get('http://localhost:3001/explore',{withCredentials:true})
+    axios.get('https://lets-code-api.onrender.com/getinfo/'+email)
+    .then((result)=>{
+      setuserinfo(result.data)
+     setid(userinfo[0]._id)
+     localStorage.setItem("id",userinfo[0]._id)
+     const arr =userinfo[0].track.filter(e=>e.type==="Study Plan")
+     setproblem(arr)
+   
+    })
+    .catch((er)=>console.log(er))
+  })
+  useEffect(()=>{
+    axios.get('https://lets-code-api.onrender.com/getgeneralprblm/'+id)
+    .then((result)=>setgeneralproblem(result.data))
+    .catch((er)=>console.log(er))
+  })
+  useEffect(()=>{
+    axios.get('https://lets-code-api.onrender.com/explore',{withCredentials:true})
     .then((result)=>{
         setemail(result.data.email)
     }).catch((err)=>console.log(err))
   },[])
   useEffect(()=>{
-    axios.get("http://localhost:3001/plan").
+    axios.get("https://lets-code-api.onrender.com/plan").
     then((res)=>setplan(res.data))
     .catch(er=>console.log(er))
   })
   const navigator = useNavigate();
   console.log(search);
-  const Filtertable = data.filter((i) => {
+  const Filtertable = generalproblem.filter((i) => {
     if (alltop === "all") {
-      return search.toLocaleLowerCase === "" ? i : i.prb.toLocaleLowerCase().includes(search.toLocaleLowerCase());
+      return search.toLocaleLowerCase === "" ? i : i.problemtitle.toLocaleLowerCase().includes(search.toLocaleLowerCase());
     } else {
-      return i.tpc.includes(alltop);
+      return i.con.includes(alltop);
     }
   });
+  console.log(generalproblem)
+
   return (
     <div>
-      <Navi email={email} />
+      <Navi id={id} />
 
       <Container style={{ paddingTop: 100 }}>
         <h2>Study Plan</h2>
@@ -49,7 +72,7 @@ function BasicExample() {
       <Container>
         <Row className="flex-wrap" xs={12} md={2}>
             {
-              plan.map((d)=>{
+              problem.map((d)=>{
                 return<div  data-aos="fade-zoom-in"
                 data-aos-easing="ease-in-back"
                 data-aos-delay="70"
@@ -142,14 +165,14 @@ function BasicExample() {
               <tr key={i}>
                 <td>
                   <Link
-                    to={"solve"}
+                    to={`${id}/solve/${d.problemtitle}`}
                     style={{ textDecoration: "none", color: "black" }}
                     className="name"
                   >
-                    {d.prb}
+                    {d.problemtitle}
                   </Link>
                 </td>
-                <td>{d.tpc}</td>
+                <td>{d.con}</td>
               </tr>
             ))}
           </tbody>

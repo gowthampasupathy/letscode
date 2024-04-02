@@ -21,14 +21,21 @@ function BasicExample() {
     const count=0;
     const badgecount=0;
     const Submit=()=>{
-      axios.post("http://localhost:3001/addtrack",{title,description,imageurl,type,url,check,count,badgecount})
+      axios.post("https://lets-code-api.onrender.com/addtrack",{title,description,imageurl,type,url,check,count,badgecount})
       .then((res)=>{console.log("added")})
     }
     useEffect(()=>{
-      axios.get('http://localhost:3001/track')
+      axios.get('https://lets-code-api.onrender.com/track')
       .then((result)=>settrack(result.data))
       .catch((err)=>console.log(err))
     },[])
+    const handledelete=(id)=>{
+      axios.delete("https://lets-code-api.onrender.com/deletetrack/"+id)
+      .then((res)=>{
+        console.log(res.data)
+        window.location.reload()})
+      .catch((er)=>console.log(er))
+    }
     
   return (
     <div>
@@ -43,7 +50,7 @@ function BasicExample() {
           <Form.Label>
             <h5>Track Type</h5>
           </Form.Label>
-          <Form.Select onChange={(e)=>settype(e.target.value)}>
+          <Form.Select required onChange={(e)=>settype(e.target.value)}>
             <option>Select Category</option>
             <option>Basic Tracks</option>
             <option>Study Plan</option>
@@ -54,7 +61,7 @@ function BasicExample() {
         <Col xs={12} md={8}>
         <Form.Group className="mb-3">
         <Form.Label><h5>Tracks Title</h5></Form.Label>
-        <Form.Control placeholder="Enter the Problem Title" onChange={(e)=>settitle(e.target.value)} >
+        <Form.Control required placeholder="Enter the Problem Title" onChange={(e)=>settitle(e.target.value)} >
         </Form.Control>
       </Form.Group>
         </Col>
@@ -64,7 +71,7 @@ function BasicExample() {
           <Form.Label>
             <h5>Description</h5>
           </Form.Label>
-          <Form.Control as="textarea" rows={3} onChange={(e)=>setdescription(e.target.value)} ></Form.Control>
+          <Form.Control required as="textarea" rows={3} onChange={(e)=>setdescription(e.target.value)} ></Form.Control>
         </Form.Group>
       </Row>
       <Row style={{marginTop:20}}>
@@ -116,7 +123,7 @@ function BasicExample() {
         <tr  key={i} >
           <td>{d.title}</td>
           <td>{i+10}</td>
-          <td><Button variant="outline-dark">Delete</Button></td>
+          <td><Button variant="outline-dark" onClick={(e)=>handledelete(d._id)}>Delete</Button></td>
         </tr>
          ))}
       </tbody>

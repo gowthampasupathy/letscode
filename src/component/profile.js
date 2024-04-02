@@ -20,16 +20,46 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 function BasicExample() {
-  const{email}=useParams()
+  const{id}=useParams()
   const navigator = useNavigate();
   const [modalShow, setModalShow] = React.useState(false);
   const [modalShow1, setModalShow1] = React.useState(false);
-  const[info,setinfo]=useState({})
+   const[info,setinfo]=useState({})
+  const infoo=JSON.parse(localStorage.getItem("info"))
+  const[email,setemail]=useState()
+  const [userinfo,setuserinfo]=useState({})
+  const [enrolledtrack,setenrolledtrack]=useState([])
+  const [userid,setuserid]=useState()
+  
   useEffect(()=>{
-    axios.get("http://localhost:3001/info/"+email)
-    .then((res)=>setinfo(res.data))
+    axios.get('https://lets-code-api.onrender.com/getinfo/'+email)
+    .then((result)=>{
+      setuserinfo(result.data)
+    })
     .catch((er)=>console.log(er))
   })
+
+  useEffect(()=>{
+    axios.get('https://lets-code-api.onrender.com/explore',{withCredentials:true})
+    .then((result)=>{
+        setemail(result.data.email)
+    }).catch((err)=>console.log(err))
+  },[])
+  useEffect(()=>{
+    axios.get("https://lets-code-api.onrender.com/info/"+id)
+    .then((res)=>{
+      localStorage.setItem("info",JSON.stringify(res.data))
+      setinfo(res.data)
+    })
+    .catch((er)=>console.log(er))
+  })
+  useEffect(()=>{
+    axios.get(`https://lets-code-api.onrender.com/getenrolledtrack/${info._id}`)
+    .then((result)=>setenrolledtrack(result.data))
+    .catch((er)=>console.log(er))
+  })
+
+  console.log(info._id)
   return (
     <div>
       <Nav></Nav>
@@ -47,7 +77,8 @@ function BasicExample() {
                         </Row>
                         <Button variant="dark" style={{width:'100%',marginTop:30}} onClick={() => setModalShow(true)}>Edit Profile</Button>
                         <App
-                          show={modalShow}
+                        id={id}
+                         show={modalShow}
                           onHide={() => setModalShow(false)}
                         />
                         <hr></hr>
@@ -62,6 +93,7 @@ function BasicExample() {
                         <h6>{info.college}</h6></p>
                         <Button variant="dark" style={{width:'100%'}} onClick={() => setModalShow1(true)}>Reset Password</Button>
                         <App2
+                        email={info.email}
                           show={modalShow1}
                           onHide={() => setModalShow1(false)}
                         />
@@ -81,10 +113,10 @@ function BasicExample() {
                 </Card.Header>
                 <div style={{width:"100%",height:155,backgroundColor:'orange',overflowY:'scroll',scrollbarWidth:'none',padding:10,borderRadius:10}}>
                 <p  >
-                <h5>Total Problem Solved:15</h5>
-                    <h5>Easy Level:5</h5>
-                    <h5> Medium Level:5</h5>
-                    <h5>Hard Level:5</h5>
+                <h5>Total Problem Solved: { info.total}</h5>
+                    <h5>Easy Level: { info.easy}</h5>
+                    <h5> Medium Level: { info.medium}</h5>
+                    <h5>Hard Level: { info.hard}</h5>
                 </p>
                 </div>
               </Card>
@@ -97,20 +129,22 @@ function BasicExample() {
                     Tracks Enrolled
                 </Card.Header>
                 <div style={{width:"100%",height:155,backgroundColor:'orange',overflowY:'scroll',scrollbarWidth:'none',padding:10,borderRadius:10}}>
-                <h6> Kick Start For Absolute Beginners </h6>
-                    <hr></hr>
-                    <h6>C++ - 10 VERY-EASY CHALLENGES </h6>
-                    <hr></hr>
-                    <h6>PYTHON3.x - 10 AVERAGE CHALLENGES </h6>
-                    <hr></hr>
-                    <h6>C++ - 10 VERY-EASY CHALLENGES </h6>
-                    <hr></hr>
-                    <h6>PYTHON3.x - 10 AVERAGE CHALLENGES </h6>
+                {
+                  enrolledtrack.map((d)=>{
+                    return(
+                      <div>
+                        <h6> {d.title}</h6>
+                      <hr></hr>
+                      </div>
+                    );
+                  })
+                }
+
                 </div>
               </Card>
             </Col>
                 </Row>
-                <Row style={{marginTop:30}}>
+                {/* <Row style={{marginTop:30}}>
                 <Col xs={12} md={12} style={{padding:10}}>
               <Card style={{backgroundColor:'black',width:"100%"}}>
                 <Card.Header
@@ -130,7 +164,7 @@ function BasicExample() {
                 </div>
               </Card>
             </Col>
-                </Row>
+                </Row> */}
             </Col>
         </Row>
       </Container>

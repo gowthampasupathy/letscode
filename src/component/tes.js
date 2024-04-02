@@ -12,18 +12,22 @@ import axios from "axios";
 
 function BasicExample() {
   const {title}=useParams()
+  const {id}=useParams();
   const [head,sethead]=useState([])
   const [prb,setprb]=useState([])
+  const[enroll,setenroll]=useState(0)
   useEffect(()=>{
-    axios.get("http://localhost:3001/prb/"+title).
+    axios.get("https://lets-code-api.onrender.com/prb/"+title).
     then((res)=>sethead(res.data))
     .catch(er=>console.log(er))
   })
-  // useEffect(()=>{
-  //   axios.get("http://localhost:3001/prblist/"+title)
-  //   .then((res)=>setprb(res.data))
-  //   .catch(err=>console.log(err))
-  // })
+
+   useEffect(()=>{
+    setenroll(1)
+    axios.put(`https://lets-code-api.onrender.com/trackenrollment/${id}/${title}`,{enroll})
+    .then((result)=>console.log(result.data))
+    .catch((er)=>console.log(er))
+   })
   return (
     <>
     {
@@ -34,7 +38,10 @@ function BasicExample() {
         <h1 class="typed" style={{letterSpacing:10}}>{d.title} </h1>
      </div>
         </div>   
-           <List title={d.title}/>
+        
+          <div className="contentdiv">
+        <List title={d.title} id={id}/>
+          </div>
          </div>
       })
     }

@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { Link, useParams } from "react-router-dom"
+import { Link, json, useParams } from "react-router-dom"
 import Navi from './nav'
 import "../style/problem.css";
 import {useNavigate } from 'react-router-dom'
@@ -17,20 +17,61 @@ function BasicExample() {
   const navigator =useNavigate();
   const [track,settrack]=useState([])
   const [suc,setsuc]=useState()
-  const[email,setemail]=useState()
+  const[email,setemail]=useState(localStorage.getItem("email")||"")
+  const [id,setid]=useState(localStorage.getItem("id")||"")
+  const [userinfo,setuserinfo]=useState({})
+  const [userdata,setuserdata]=useState({})
+  const [info,setinfo]=useState({})
+ const trk=JSON.parse(localStorage.getItem("trk"))
+  const [basictrk,setbasictrk]=useState([])
 
 
   useEffect(()=>{
-    axios.get('http://localhost:3001/trac')
-    .then((result)=>settrack(result.data))
-    .catch((err)=>console.log(err))
-  },[])
+    axios.get("https://lets-code-api.onrender.com/info/"+id)
+    .then((res)=>setinfo(res.data))
+    .catch((er)=>console.log(er))
+  })
+  window.onload = function() {
+    //considering there aren't any hashes in the urls already
+    if(!window.location.hash) {
+        //setting window location
+        window.location = window.location + '#loaded';
+        //using reload() method to reload web page
+        window.location.reload();
+    }
+}
   useEffect(()=>{
-    axios.get('http://localhost:3001/explore',{withCredentials:true})
+    axios.get('https://lets-code-api.onrender.com/getinfo/'+email)
+    .then((result)=>{
+      setuserinfo(result.data)
+     setid(userinfo[0]._id)
+     localStorage.setItem("id",userinfo[0]._id)
+    //  localStorage.setItem("userdata",JSON.stringify(result.data))
+    //  settrack(userinfo[0].track)
+     const arr =userinfo[0].track.filter(e=>e.type==="Basic Tracks")
+     settrack(arr)
+    // localStorage.setItem("trk",JSON.stringify(arr))
+    })
+    .catch((er)=>console.log(er))
+  })
+  // useEffect(()=>{
+  //   axios.get('http://localhost:3001/trac')
+  //   .then((result)=>settrack(result.data))
+  //   .catch((err)=>console.log(err))
+  // },[])
+
+  // useEffect(()=>{
+  //   axios.get('http://localhost:3001/gettrack')
+  //   .then((result)=>settrk(result.data))
+  //   .catch((er)=>console.log(er))
+  // })
+  useEffect(()=>{
+    axios.get('https://lets-code-api.onrender.com/explore',{withCredentials:true})
     .then((result)=>{
       if(result.data.status==="Success"){
         setsuc("Success User")
         setemail(result.data.email)
+        localStorage.setItem("email",result.data.email)
       }else{
         console.log("faild"+result.data)
         navigator('/')
@@ -38,10 +79,11 @@ function BasicExample() {
       }
     }).catch((err)=>console.log(err))
   },[])
-
+   
+  //console.log(trk)
   return (     
   <div> 
-     <Navi email={email} />
+     <Navi id={id} />
     <Container>
     <h6  style={{marginTop:100,fontSize:20,color:'GrayText'}}>Welcome To</h6>
     <h1>LetsCode Explore </h1>
@@ -110,7 +152,7 @@ function BasicExample() {
               trk.description
             }
             </Card.Text>
-            <button type='button' class='touch' onClick={()=>navigator(`/Exp/${trk.title}`)}  ><span>Show<i class="bi bi-chevron-double-right"></i></span></button>
+            <button type='button' class='touch' onClick={()=>navigator(`/Exp/${id}/${trk.title}`)}  ><span>Enroll<i class="bi bi-chevron-double-right"></i></span></button>
           </Card.Body>
         </Card></Col> 
           </div>

@@ -19,21 +19,20 @@ function App() {
   const [country,setcountry]=useState()
   const navigate=useNavigate();
   const[problem,setproblem]=useState([])
-  const[track,settrack]=useState({})
-  const solvedcount={
-    total:0,
-    easy:0,
-    medium:0,
-    hard:0,
-  }
+  const[track,settrack]=useState([])
+  const total=0;
+  const easy=0;
+  const medium=0;
+  const hard=0;
+ 
  
   useEffect(()=>{
-    axios.get("http://localhost:3001/getprb")
+    axios.get("https://lets-code-api.onrender.com/getprb")
     .then((pr)=>setproblem(pr.data))
     .catch((er)=>console.log(er))
   },[])
   useEffect(()=>{
-    axios.get('http://localhost:3001/trac')
+    axios.get('https://lets-code-api.onrender.com/track')
     .then((result)=>settrack(result.data))
     .catch((err)=>console.log(err))
   },[])
@@ -41,9 +40,9 @@ function App() {
     e.preventDefault();
     console.log(problem)
     console.log(track)
-    const url1=axios.post("http://localhost:3001/register",{name,email,password},{withCredentials:true})
-    // const url2=axios.post("http://localhost:3001/user",{name,email,country,contact,college,solvedcount,problem})
-    const url2=axios.post("http://localhost:3001/type",{email},{withCredentials:true})
+    const url1=axios.post("https://lets-code-api.onrender.com/register",{name,email,password},{withCredentials:true})
+    const url2=axios.post("https://lets-code-api.onrender.com/user",{name,email,country,contact,college,total,easy,medium,hard,problem,track})
+    //const url2=axios.post("http://localhost:3001/type",{email,track},{withCredentials:true})
     Promise.all([url1,url2])
     .then((res)=>{
       navigate("/login");

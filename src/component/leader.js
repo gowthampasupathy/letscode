@@ -12,8 +12,19 @@ function BasicExample() {
     const [search1, setsearch1] = useState("all");
     const [search2, setsearch2] = useState("all");
     const[email,setemail]=useState()
+    const[id,setid]=useState(localStorage.getItem("id")||"")
+    const [userinfo,setuserinfo]=useState({})
     useEffect(()=>{
-      axios.get('http://localhost:3001/explore',{withCredentials:true})
+      axios.get('https://lets-code-api.onrender.com/getinfo/'+email)
+      .then((result)=>{
+        setuserinfo(result.data)
+       setid(userinfo[0]._id)
+       localStorage.setItem("id",userinfo[0]._id)
+      })
+      .catch((er)=>console.log(er))
+    })
+    useEffect(()=>{
+      axios.get('https://lets-code-api.onrender.com/explore',{withCredentials:true})
       .then((result)=>{
           setemail(result.data.email)
       }).catch((err)=>console.log(err))
@@ -29,7 +40,7 @@ function BasicExample() {
       });
   return (
    <>
-    <Navi email={email} />
+    <Navi id={id} />
    <Container style={{marginTop:110}}>
     <h2>Overall Leaderboard</h2>
     <Row>
