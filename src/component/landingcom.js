@@ -18,7 +18,7 @@ const [input, setInput] = useState(localStorage.getItem("input") || "");
   const [userInput, setUserInput] = useState(localStorage.getItem("user_Input") || "");
   const [lang, setLang] = useState(localStorage.getItem("lang") || "");
   const [col, setCol] = useState('white');
-  const [drf, setDrf] = useState(localStorage.getItem("drf") || "");
+  const [drf, setDrf] = useState( "");
   const [prb, setprb] = useState({});
   const[test,settest]=useState([])
   const[submission,setsubmission]=useState([])
@@ -30,21 +30,7 @@ const [input, setInput] = useState(localStorage.getItem("input") || "");
   const[email,setemail]=useState()
   const[id,setid]=useState(localStorage.getItem("id")||"")
   const [userinfo,setuserinfo]=useState({})
-  useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/getinfo/'+email)
-    .then((result)=>{
-      setuserinfo(result.data)
-     setid(userinfo[0]._id)
-     localStorage.setItem("id",userinfo[0]._id)
-    })
-    .catch((er)=>console.log(er))
-  })
-  useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/explore',{withCredentials:true})
-    .then((result)=>{
-        setemail(result.data.email)
-    }).catch((err)=>console.log(err))
-  },[])
+
 
 
   const handleInput = (value) => {
@@ -69,7 +55,6 @@ const [input, setInput] = useState(localStorage.getItem("input") || "");
       setLang(selectedLang.name);
       localStorage.setItem("lang", selectedLang.name);
       setDrf(selectedLang.def);
-      localStorage.setItem("drf", selectedLang.def);
        //window.location.reload();
     }
   };
@@ -179,7 +164,7 @@ const [input, setInput] = useState(localStorage.getItem("input") || "");
               id="tags"
               className="form-select  mb-2 language"
               style={{backgroundColor:'#272822',borderColor:'#272822',width:100,marginRight:50,color:'white'}}
-              defaultValue={this.state.language_id}
+              
             >
               <option value="0"  >Select language</option>
               <option value="50"  >C</option>
@@ -215,7 +200,7 @@ const [input, setInput] = useState(localStorage.getItem("input") || "");
        language={ lang}
        onChange={handleInput}
         theme='vs-dark'
-        defaultValue="// some comment"
+        value={drf}
       /></Col>
         <Col xs={12} md={6}>
           <Row><h5 style={{display:'flex',justifyContent:'start'}}>Custom Input</h5>
