@@ -110,9 +110,9 @@ function App() {
                       </Button>
                     </Form>
                     <Row>
-                      <Col md={6} xs={6}><a href="#psss" style={{ color: "black", width: "100%" }}>
+                      {/* <Col md={6} xs={6}><a href="#psss" style={{ color: "black", width: "100%" }}>
                         Forgot Password
-                      </a></Col>
+                      </a></Col> */}
                       <Col md={6} xs={6}> <p
                         style={{
                           color: "black",
