@@ -113,7 +113,7 @@ function App() {
                       {/* <Col md={6} xs={6}><a href="#psss" style={{ color: "black", width: "100%" }}>
                         Forgot Password
                       </a></Col> */}
-                      <Col md={6} xs={6}> <p
+                      <Col md={12} xs={12}> <p
                         style={{
                           color: "black",
                           width: "100%"
