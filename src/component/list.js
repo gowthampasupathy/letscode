@@ -68,6 +68,7 @@ function BasicExample(props) {
   const {title,id}=props
   const [diff, setdiff] = useState("all");
   const [info,setinfo]=useState({})
+  const [loader,setloader]=useState(false)
   const handleRadioChange = (event) => {
     setdiff(event.target.value);
   };
@@ -93,6 +94,7 @@ function BasicExample(props) {
       setinfo(res.data)
       const prblm=res.data.problem.filter(e=>e.title==title)
       setprb(prblm)
+      setloader(true)
     })
     .catch((er)=>console.log(er))
   })
@@ -226,9 +228,11 @@ function BasicExample(props) {
           </Col>
           <Col xs={12} md={9} >
             <Col xs={12} md={12}>
-              <div style={{ overflowY: "scroll",width:'100%',height:500 }}>
+             {
+              loader? <div style={{ overflowY: "scroll",width:'100%',height:500 }}>
               <CardList cards={filteredCards} id={id} />
-              </div>
+              </div>:<div className='mainloader'><div class="loader"></div></div>
+             }
               
             </Col>
           </Col>

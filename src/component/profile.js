@@ -25,11 +25,11 @@ function BasicExample() {
   const [modalShow, setModalShow] = React.useState(false);
   const [modalShow1, setModalShow1] = React.useState(false);
    const[info,setinfo]=useState({})
-  const infoo=JSON.parse(localStorage.getItem("info"))
   const[email,setemail]=useState()
   const [userinfo,setuserinfo]=useState({})
   const [enrolledtrack,setenrolledtrack]=useState([])
   const [userid,setuserid]=useState()
+  const [loader,setloader]=useState(false)
   
   useEffect(()=>{
     axios.get('https://lets-code-api.onrender.com/getinfo/'+email)
@@ -48,8 +48,8 @@ function BasicExample() {
   useEffect(()=>{
     axios.get("https://lets-code-api.onrender.com/info/"+id)
     .then((res)=>{
-      localStorage.setItem("info",JSON.stringify(res.data))
       setinfo(res.data)
+      setloader(true)
     })
     .catch((er)=>console.log(er))
   })
@@ -64,109 +64,111 @@ function BasicExample() {
     <div>
       <Nav></Nav>
       <Container style={{marginTop:100}}>
-        <Row >
-            <Col md={3} xs={12}  style={{height:'auto'}}>
-            {/* <Card style={{ width: '18rem',margin:'auto',marginTop:30,height:"auto" }}>
-                    <Card.Body> */}
-                        <Row style={{height:200,width:200,margin:'auto' }}>
-                            <Col xs={12} md={12}>
-                                <img src={prof} style={{width:'100%'}}></img>
-                                <h3 style={{width:'100%',textAlign:'center',marginTop:10}}>{info.name}</h3>
-                               
-                            </Col>
-                        </Row>
-                        <Button variant="dark" style={{width:'100%',marginTop:30}} onClick={() => setModalShow(true)}>Edit Profile</Button>
-                        <App
-                        id={id}
-                         show={modalShow}
-                          onHide={() => setModalShow(false)}
-                        />
-                        <hr></hr>
-                        <h4>About</h4>
-                        <p>Country
-                        <h6>{info.country}</h6></p>
-                        <p>Email
-                        <h6>{info.email}</h6></p>
-                        <p>Contact
-                        <h6>{info.contact}</h6></p>
-                        <p>College
-                        <h6>{info.college}</h6></p>
-                        <Button variant="dark" style={{width:'100%'}} onClick={() => setModalShow1(true)}>Reset Password</Button>
-                        <App2
-                        email={info.email}
-                          show={modalShow1}
-                          onHide={() => setModalShow1(false)}
-                        />
-
-                    {/* </Card.Body>
-            </Card>
-     */}
-            </Col>
-            <Col  md={8} xs={12} style={{height:'auto',}}>
-                <Row style={{marginTop:30}}>
-            <Col xs={12} md={6} style={{padding:10}}>
-              <Card style={{backgroundColor:'orange'}}>
-                <Card.Header
-                  style={{ backgroundColor: "black", color: "white" }}
-                >
-                  Problem Finished
-                </Card.Header>
-                <div style={{width:"100%",height:155,backgroundColor:'orange',overflowY:'scroll',scrollbarWidth:'none',padding:10,borderRadius:10}}>
-                <p  >
-                <h5>Total Problem Solved: { info.total}</h5>
-                    <h5>Easy Level: { info.easy}</h5>
-                    <h5> Medium Level: { info.medium}</h5>
-                    <h5>Hard Level: { info.hard}</h5>
-                </p>
-                </div>
-              </Card>
-            </Col>
-            <Col xs={12} md={6} style={{padding:10}}>
-              <Card style={{backgroundColor:'orange'}}>
-                <Card.Header
-                  style={{ backgroundColor: "black", color: "white" }}
-                >
-                    Tracks Enrolled
-                </Card.Header>
-                <div style={{width:"100%",height:155,backgroundColor:'orange',overflowY:'scroll',scrollbarWidth:'none',padding:10,borderRadius:10}}>
-                {
-                  enrolledtrack.map((d)=>{
-                    return(
-                      <div>
-                        <h6> {d.title}</h6>
+        {
+          loader?<Row >
+          <Col md={3} xs={12}  style={{height:'auto'}}>
+          {/* <Card style={{ width: '18rem',margin:'auto',marginTop:30,height:"auto" }}>
+                  <Card.Body> */}
+                      <Row style={{height:200,width:200,margin:'auto' }}>
+                          <Col xs={12} md={12}>
+                              <img src={prof} style={{width:'100%'}}></img>
+                              <h3 style={{width:'100%',textAlign:'center',marginTop:10}}>{info.name}</h3>
+                             
+                          </Col>
+                      </Row>
+                      <Button variant="dark" style={{width:'100%',marginTop:30}} onClick={() => setModalShow(true)}>Edit Profile</Button>
+                      <App
+                      id={id}
+                       show={modalShow}
+                        onHide={() => setModalShow(false)}
+                      />
                       <hr></hr>
-                      </div>
-                    );
-                  })
-                }
+                      <h4>About</h4>
+                      <p>Country
+                      <h6>{info.country}</h6></p>
+                      <p>Email
+                      <h6>{info.email}</h6></p>
+                      <p>Contact
+                      <h6>{info.contact}</h6></p>
+                      <p>College
+                      <h6>{info.college}</h6></p>
+                      <Button variant="dark" style={{width:'100%'}} onClick={() => setModalShow1(true)}>Reset Password</Button>
+                      <App2
+                      email={info.email}
+                        show={modalShow1}
+                        onHide={() => setModalShow1(false)}
+                      />
 
-                </div>
-              </Card>
-            </Col>
-                </Row>
-                {/* <Row style={{marginTop:30}}>
-                <Col xs={12} md={12} style={{padding:10}}>
-              <Card style={{backgroundColor:'black',width:"100%"}}>
-                <Card.Header
-                  style={{ backgroundColor: "orange", color: "black" }}
-                >
-                   My Badges
-                </Card.Header>
-                <div style={{width:"100%",height:155,backgroundColor:'black',overflowX:'scroll',scrollbarWidth:'none',padding:10,borderRadius:10}}>
-                <p>
-                <img src={c} style={{height:150,width:150,padding:10}}></img>
-                <img src={java} style={{height:150,width:150,padding:10}}></img>
-                <img src={cpp} style={{height:150,width:150,padding:10}}></img>
-                <img src={ruby} style={{height:150,width:150,padding:10}}></img>
-                <img src={python} style={{height:150,width:150,padding:10}}></img>
-                <img src={js} style={{height:150,width:150,padding:10}}></img>
-                </p>
-                </div>
-              </Card>
-            </Col>
-                </Row> */}
-            </Col>
-        </Row>
+                  {/* </Card.Body>
+          </Card>
+   */}
+          </Col>
+          <Col  md={8} xs={12} style={{height:'auto',}}>
+              <Row style={{marginTop:30}}>
+          <Col xs={12} md={6} style={{padding:10}}>
+            <Card style={{backgroundColor:'orange'}}>
+              <Card.Header
+                style={{ backgroundColor: "black", color: "white" }}
+              >
+                Problem Finished
+              </Card.Header>
+              <div style={{width:"100%",height:155,backgroundColor:'orange',overflowY:'scroll',scrollbarWidth:'none',padding:10,borderRadius:10}}>
+              <p  >
+              <h5>Total Problem Solved: { info.total}</h5>
+                  <h5>Easy Level: { info.easy}</h5>
+                  <h5> Medium Level: { info.medium}</h5>
+                  <h5>Hard Level: { info.hard}</h5>
+              </p>
+              </div>
+            </Card>
+          </Col>
+          <Col xs={12} md={6} style={{padding:10}}>
+            <Card style={{backgroundColor:'orange'}}>
+              <Card.Header
+                style={{ backgroundColor: "black", color: "white" }}
+              >
+                  Tracks Enrolled
+              </Card.Header>
+              <div style={{width:"100%",height:155,backgroundColor:'orange',overflowY:'scroll',scrollbarWidth:'none',padding:10,borderRadius:10}}>
+              {
+                enrolledtrack.map((d)=>{
+                  return(
+                    <div>
+                      <h6> {d.title}</h6>
+                    <hr></hr>
+                    </div>
+                  );
+                })
+              }
+
+              </div>
+            </Card>
+          </Col>
+              </Row>
+              {/* <Row style={{marginTop:30}}>
+              <Col xs={12} md={12} style={{padding:10}}>
+            <Card style={{backgroundColor:'black',width:"100%"}}>
+              <Card.Header
+                style={{ backgroundColor: "orange", color: "black" }}
+              >
+                 My Badges
+              </Card.Header>
+              <div style={{width:"100%",height:155,backgroundColor:'black',overflowX:'scroll',scrollbarWidth:'none',padding:10,borderRadius:10}}>
+              <p>
+              <img src={c} style={{height:150,width:150,padding:10}}></img>
+              <img src={java} style={{height:150,width:150,padding:10}}></img>
+              <img src={cpp} style={{height:150,width:150,padding:10}}></img>
+              <img src={ruby} style={{height:150,width:150,padding:10}}></img>
+              <img src={python} style={{height:150,width:150,padding:10}}></img>
+              <img src={js} style={{height:150,width:150,padding:10}}></img>
+              </p>
+              </div>
+            </Card>
+          </Col>
+              </Row> */}
+          </Col>
+      </Row>:<div className='mainloader'><div class="loader"></div></div>
+        }
       </Container>
     </div>
   );

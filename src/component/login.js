@@ -10,12 +10,23 @@ function App() {
   const [password, setPassword] = useState("");
   const toast = useRef(null);
   const navigate = useNavigate();
+  const[emailerror,setemailerror]=useState("")
+  const[passworderror,setPassworderror]=useState("")
+  const[opacity,setopacity]=useState("")
+  const[cursor,setcursor]=useState("pointer")
+  const[btnval,setbtnval]=useState("Login")
 
   const Submit = (e) => {
     e.preventDefault();
+    setcursor("not-allowed")
+    setopacity(0.6)
+    setbtnval("logging In Please Wait")
     axios.post("https://lets-code-api.onrender.com/login", { email, password }, { withCredentials: true })
       .then(res => {
+        console.log(res.data)
         if (res.data.status === "Success") {
+          setemailerror("")
+          setPassworderror("")
           if (res.data.role === "admin") {
             console.log(res.data);
             navigate("/admin");
@@ -28,6 +39,18 @@ function App() {
             console.log(res.data);
             navigate("/Compiler");
           }
+        }else if (res.data==="Password Incorrect"){
+          setemailerror("")
+          setPassworderror(res.data)
+          setcursor("pointer")
+          setopacity()
+          setbtnval("Login")
+        }else{
+          setPassworderror("")
+          setemailerror(res.data)
+          setcursor("pointer")
+          setopacity()
+          setbtnval("Login")
         }
       })
       .catch(err => alert(err));
@@ -66,7 +89,7 @@ function App() {
                     Login In To Continue Your Coding
                   </h5>
                   <Container style={{ marginTop: 50 }}>
-                    <Form style={{ padding: 10 }} onSubmit={Submit}>
+                    <Form style={{ padding: 10 }} >
                       <Form.Group
                         className="mb-4"
                         controlId="formBasicEmail"
@@ -80,6 +103,7 @@ function App() {
                           required
                           onChange={(e) => setEmail(e.target.value)}
                         />
+                        <p style={{color:'black',fontWeight:'bold'}}>{emailerror}</p>
                       </Form.Group>
 
                       <Form.Group
@@ -95,6 +119,7 @@ function App() {
                           required
                           onChange={(e) => setPassword(e.target.value)}
                         />
+                         <p style={{color:'black',fontWeight:'bold'}}>{passworderror}</p>
                       </Form.Group>
                       <Button
                         style={{
@@ -103,10 +128,13 @@ function App() {
                           marginTop: 30,
                           backgroundColor: "black",
                           borderColor: "black",
+                          cursor:cursor,
+                          opacity:opacity
                         }}
                         type="submit"
+                        onClick={Submit}
                       >
-                        Login
+                        {btnval}
                       </Button>
                     </Form>
                     <Row>

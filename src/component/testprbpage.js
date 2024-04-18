@@ -54,6 +54,8 @@ const Compiler = () => {
   const[error,seterror]=useState("")
   const[solution,setsolution]=useState({})
   const[buttonval,setbuttonval]=useState([])
+  const [loader,setloader]=useState(false)
+
   useEffect(()=>{
     axios.get(`https://lets-code-api.onrender.com/getprbdetail/${id}/${prbid}`,)
     .then((res)=>{
@@ -65,6 +67,7 @@ const Compiler = () => {
     axios.get(`https://lets-code-api.onrender.com/getprbtestcase/${id}/${prbid}`,)
     .then((res)=>{
       settest(res.data)
+      setloader(true)
     })
     .catch((er)=>console.log(er))
   },[])
@@ -406,8 +409,9 @@ const Compiler = () => {
 
   return  (
     <div>
-      <Navi />
-      <div style={{ marginTop: 90 }}>
+      <Navi id={id} />
+      {
+        loader?<div style={{ marginTop: 90 }}>
         <Row style={{ paddingLeft: 10 }}>
           <Col xs={12} md={6} style={{ height: 640, overflowY: "hidden" }}>
           <Tabs
@@ -596,7 +600,8 @@ const Compiler = () => {
               
             </Col> 
         </Row>
-      </div>
+      </div>:<div className='mainloader'><div class="loader"></div></div>
+      }
     </div>
   );
 };

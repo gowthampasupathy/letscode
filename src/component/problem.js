@@ -23,6 +23,17 @@ function BasicExample() {
   const[id,setid]=useState(localStorage.getItem("id")||"")
   const [userinfo,setuserinfo]=useState({})
   const [generalproblem,setgeneralproblem]=useState([])
+  const prb=JSON.parse(localStorage.getItem("prb"))
+  const [loader,setloader]=useState(false)
+  const [loader1,setloader1]=useState()
+  useEffect(()=>{
+    if(prb==null){
+      setloader(false)
+    }else{
+      setloader(true)
+    }
+  })
+
   useEffect(()=>{
     axios.get('https://lets-code-api.onrender.com/getinfo/'+email)
     .then((result)=>{
@@ -31,13 +42,19 @@ function BasicExample() {
      localStorage.setItem("id",userinfo[0]._id)
      const arr =userinfo[0].track.filter(e=>e.type==="Study Plan")
      setproblem(arr)
+     localStorage.setItem("prb",JSON.stringify(arr))
+     setloader(true)
    
     })
     .catch((er)=>console.log(er))
   })
   useEffect(()=>{
     axios.get('https://lets-code-api.onrender.com/getgeneralprblm/'+id)
-    .then((result)=>setgeneralproblem(result.data))
+    .then((result)=>{
+      setgeneralproblem(result.data)
+      
+      setloader1(true)
+    })
     .catch((er)=>console.log(er))
   })
   useEffect(()=>{
@@ -72,7 +89,7 @@ function BasicExample() {
       <Container>
         <Row className="flex-wrap" xs={12} md={2}>
             {
-              problem.map((d)=>{
+              loader ? prb.map((d)=>{
                 return<div  data-aos="fade-zoom-in"
                 data-aos-easing="ease-in-back"
                 data-aos-delay="70"
@@ -99,7 +116,7 @@ function BasicExample() {
                   </button>
                 </Card.Body>
               </Card></Col> </div>
-              })
+              }):<div className='mainloader'><div class="loader"></div></div>
             }
          
         </Row>
@@ -153,7 +170,7 @@ function BasicExample() {
         </Row>
       </Container>
       <Container style={{ marginTop: 20 }}>
-        <Table>
+        <Table >
           <thead>
             <tr>
               <th>PROBLEM </th>
@@ -161,7 +178,7 @@ function BasicExample() {
             </tr>
           </thead>
           <tbody>
-            {Filtertable.map((d, i) => (
+            {loader1?Filtertable.map((d, i) => (
               <tr key={i}>
                 <td>
                   <Link
@@ -174,7 +191,7 @@ function BasicExample() {
                 </td>
                 <td>{d.con}</td>
               </tr>
-            ))}
+            )):<div className='mainloader2'><div class="loader"></div></div>}
           </tbody>
         </Table>
       </Container>

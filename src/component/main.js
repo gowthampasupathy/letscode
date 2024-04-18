@@ -24,7 +24,7 @@ function BasicExample() {
   const [info,setinfo]=useState({})
  const trk=JSON.parse(localStorage.getItem("trk"))
   const [basictrk,setbasictrk]=useState([])
-
+  const [loader,setloader]=useState(false)
 
   useEffect(()=>{
     axios.get("https://lets-code-api.onrender.com/info/"+id)
@@ -50,7 +50,7 @@ function BasicExample() {
     //  settrack(userinfo[0].track)
      const arr =userinfo[0].track.filter(e=>e.type==="Basic Tracks")
      settrack(arr)
-    // localStorage.setItem("trk",JSON.stringify(arr))
+     setloader(true)
     })
     .catch((er)=>console.log(er))
   })
@@ -92,72 +92,29 @@ function BasicExample() {
         <h3 style={{marginTop:50}}>Available Languages</h3>
     </Container>
     <Container>
-      {/* <Row className="flex-wrap"
-      >
-        <Col xs={12} md={3}> <Card className=" card1 shadow-sm">
-      <Card.Img variant="top" src={clogo} style={{height:200,width:200,margin:'auto'}} />
-      <Card.Body >
-        <Card.Title>C Programming</Card.Title>
-        <Card.Text>
-        Hands-on Programming Challenges to learn and practise C
-        </Card.Text>
-        <button type='button' class='touch' onClick={()=>navigator("/Exp/cpp")}  ><span>Show<i class="bi bi-chevron-double-right"></i></span></button>
-      </Card.Body>
-    </Card></Col>
-        <Col xs={12}md={3}> <Card className=" card1 shadow-sm">
-      <Card.Img variant="top" src={jlogo} style={{height:200,width:200,margin:'auto'}} />
-      <Card.Body>
-        <Card.Title>Java Programming </Card.Title>
-        <Card.Text>
-        Hands-on Programming Challenges to learn and practise Java
-        </Card.Text>
-        <button type='button' class='touch' onClick={()=>navigator("/Exp/cpp")}  ><span>Show<i class="bi bi-chevron-double-right"></i></span></button>
-      </Card.Body>
-    </Card></Col>
-        <Col xs={12} md={3}> <Card className=" card1 shadow-sm">
-      <Card.Img variant="top" src={cpplogo} style={{height:200,width:200,margin:'auto'}}/>
-      <Card.Body>
-        <Card.Title>C++ Programming </Card.Title>
-        <Card.Text>
-        Hands-on Programming Challenges to learn and practise C++
-        </Card.Text>
-        <button type='button' class='touch' onClick={()=>navigator("/Exp/cpp")}  ><span>Show<i class="bi bi-chevron-double-right"></i></span></button>
-      </Card.Body>
-    </Card></Col>
-        <Col xs={12} md={3}> <Card className=" card1 shadow-sm">
-      <Card.Img variant="top" src={pylogo} style={{height:200,width:200,margin:'auto'}} />
-      <Card.Body>
-        <Card.Title>Python Programming</Card.Title>
-        <Card.Text>
-        SoHands-on Programming Challenges to learn and practise Python
-        </Card.Text>
-        <button type='button' class='touch' onClick={()=>navigator("/Exp/cpp")}  ><span>Show<i class="bi bi-chevron-double-right"></i></span></button>
-      </Card.Body>
-    </Card></Col>
-      </Row> */}
         <Row className="flex-wrap" xs={12} md={4} style={{marginTop:50}}
       >
        {
-        track.map((trk)=>{
-          return  <div  data-aos="fade-zoom-in"
-          data-aos-easing="ease-in-back"
-          data-aos-delay="70"
-          data-aos-offset="0">
-            <Col > <Card className=" card1 shadow-sm" style={{margin:5,}}>
-          <Card.Img variant="top" src={trk.imageurl} style={{height:200,width:200,margin:'auto'}} />
-          <Card.Body >
-            <Card.Title>{trk.title}</Card.Title>
-            <Card.Text>
-            {
-              trk.description
-            }
-            </Card.Text>
-            <button type='button' class='touch' onClick={()=>navigator(`/Exp/${id}/${trk.title}`)}  ><span>Enroll<i class="bi bi-chevron-double-right"></i></span></button>
-          </Card.Body>
-        </Card></Col> 
-          </div>
-         
-        })
+       loader? track.map((trk)=>{
+        return  <div  data-aos="fade-zoom-in"
+        data-aos-easing="ease-in-back"
+        data-aos-delay="70"
+        data-aos-offset="0">
+          <Col > <Card className=" card1 shadow-sm" style={{margin:5,}}>
+        <Card.Img variant="top" src={trk.imageurl} style={{height:200,width:200,margin:'auto'}} />
+        <Card.Body >
+          <Card.Title>{trk.title}</Card.Title>
+          <Card.Text>
+          {
+            trk.description
+          }
+          </Card.Text>
+          <button type='button' class='touch' onClick={()=>navigator(`/Exp/${id}/${trk.title}`)}  ><span>Enroll<i class="bi bi-chevron-double-right"></i></span></button>
+        </Card.Body>
+      </Card></Col> 
+        </div>
+       
+      }):<div className='mainloader'><div class="loader"></div></div>
        }
       </Row>
     </Container>

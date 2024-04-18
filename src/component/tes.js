@@ -16,9 +16,12 @@ function BasicExample() {
   const [head,sethead]=useState([])
   const [prb,setprb]=useState([])
   const[enroll,setenroll]=useState(0)
+
   useEffect(()=>{
     axios.get("https://lets-code-api.onrender.com/prb/"+title).
-    then((res)=>sethead(res.data))
+    then((res)=>{
+      sethead(res.data)
+    })
     .catch(er=>console.log(er))
   })
 
@@ -30,21 +33,17 @@ function BasicExample() {
    })
   return (
     <>
-    {
-      head.map((d)=>{
-        return <div>
-        <div className="top">
-        <div class="typewriter">
-        <h1 class="typed" style={{letterSpacing:10}}>{d.title} </h1>
-     </div>
-        </div>   
-        
-          <div className="contentdiv">
-        <List title={d.title} id={id}/>
-          </div>
-         </div>
-      })
-    }
+    <div>
+      <div className="top">
+      <div class="typewriter">
+      <h1 class="typed" style={{letterSpacing:10}}>{title} </h1>
+   </div>
+      </div>   
+      
+        <div className="contentdiv">
+      <List title={title} id={id}/>
+        </div>
+       </div>
     </>
   );
 }
