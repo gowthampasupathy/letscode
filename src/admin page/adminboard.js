@@ -114,7 +114,7 @@ function BasicExample() {
         <Card style={{padding:30}} className="shadow-sm">
           <Table striped bordered hover>
             <thead>
-             <th>Title</th>
+             <th>TITLE</th>
              <th></th>
             </thead>
             <tbody>
