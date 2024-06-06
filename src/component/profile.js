@@ -30,9 +30,10 @@ function BasicExample() {
   const [enrolledtrack,setenrolledtrack]=useState([])
   const [userid,setuserid]=useState()
   const [loader,setloader]=useState(false)
+  const apiUrl = process.env.REACT_APP_API_URL;
   
   useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/getinfo/'+email)
+    axios.get(`${apiUrl}/getinfo/`+email)
     .then((result)=>{
       setuserinfo(result.data)
     })
@@ -40,13 +41,13 @@ function BasicExample() {
   })
 
   useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/explore',{withCredentials:true})
+    axios.get(`${apiUrl}/explore`,{withCredentials:true})
     .then((result)=>{
         setemail(result.data.email)
     }).catch((err)=>console.log(err))
   },[])
   useEffect(()=>{
-    axios.get("https://lets-code-api.onrender.com/info/"+id)
+    axios.get(`${apiUrl}/info/`+id)
     .then((res)=>{
       setinfo(res.data)
       setloader(true)
@@ -54,7 +55,7 @@ function BasicExample() {
     .catch((er)=>console.log(er))
   })
   useEffect(()=>{
-    axios.get(`https://lets-code-api.onrender.com/getenrolledtrack/${info._id}`)
+    axios.get(`${apiUrl}/getenrolledtrack/${info._id}`)
     .then((result)=>setenrolledtrack(result.data))
     .catch((er)=>console.log(er))
   })

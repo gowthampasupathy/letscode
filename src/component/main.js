@@ -25,9 +25,10 @@ function BasicExample() {
  const trk=JSON.parse(localStorage.getItem("trk"))
   const [basictrk,setbasictrk]=useState([])
   const [loader,setloader]=useState(false)
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(()=>{
-    axios.get("https://lets-code-api.onrender.com/info/"+id)
+    axios.get(`${apiUrl}/info/`+id)
     .then((res)=>setinfo(res.data))
     .catch((er)=>console.log(er))
   })
@@ -41,7 +42,7 @@ function BasicExample() {
     }
 }
   useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/getinfo/'+email)
+    axios.get(`${apiUrl}/getinfo/`+email)
     .then((result)=>{
       setuserinfo(result.data)
      setid(userinfo[0]._id)
@@ -66,7 +67,7 @@ function BasicExample() {
   //   .catch((er)=>console.log(er))
   // })
   useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/explore',{withCredentials:true})
+    axios.get(`${apiUrl}/explore`,{withCredentials:true})
     .then((result)=>{
       if(result.data.status==="Success"){
         setsuc("Success User")

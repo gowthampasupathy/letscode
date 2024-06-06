@@ -29,8 +29,9 @@ const Compiler = () => {
   const[email,setemail]=useState()
   const[id,setid]=useState(localStorage.getItem("id")||"")
   const [userinfo,setuserinfo]=useState({})
+  const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/getinfo/'+email)
+    axios.get(`${apiUrl}/getinfo/`+email)
     .then((result)=>{
       setuserinfo(result.data)
      setid(userinfo[0]._id)
@@ -39,7 +40,7 @@ const Compiler = () => {
     .catch((er)=>console.log(er))
   })
   useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/explore',{withCredentials:true})
+    axios.get(`${apiUrl}/explore`,{withCredentials:true})
     .then((result)=>{
         setemail(result.data.email)
     }).catch((err)=>console.log(err))

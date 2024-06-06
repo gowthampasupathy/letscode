@@ -12,8 +12,9 @@ function MyVerticallyCenteredModal(props) {
   const [error,seterror]=useState()
   const[oldid,setoldid]=useState()
   const[reg,setreg]=useState([])
+  const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(()=>{
-    axios.get("https://lets-code-api.onrender.com/getuserid/" + oldemail)
+    axios.get("${apiUrl}/getuserid/" + oldemail)
     .then((res) => {
       setreg(res.data);
       if (res.data.length > 0) {
@@ -38,7 +39,7 @@ function MyVerticallyCenteredModal(props) {
   }
   const handlesubmit=()=>{
     alert("click")
-    axios.put(`https://lets-code-api.onrender.com/resetpasseord/${oldid}`,{password})
+    axios.put(`${apiUrl}/resetpasseord/${oldid}`,{password})
     .then((result)=>console.log(result))
     .catch((er)=>console.log(er))
   }

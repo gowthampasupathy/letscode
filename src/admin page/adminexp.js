@@ -27,14 +27,15 @@ function BasicExample() {
   const[usercount,setusercount]=useState()
   const[trackcount,settrackcount]=useState()
   const[problemcount,setproblemcount]=useState()
+  const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/user')
+    axios.get(`${apiUrl}/user`)
     .then((uss)=>setuser(uss.data))
     .catch((err)=>console.log(err))
   })
 
   useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/dashboard',{withCredentials:true})
+    axios.get(`${apiUrl}/dashboard`,{withCredentials:true})
     .then((result)=>{
     if(result.data==="Success"){
         setsuc("Success Admin")
@@ -44,15 +45,15 @@ function BasicExample() {
     }).catch((err)=>console.log(err))
   })
   useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/getusercount')
+    axios.get(`${apiUrl}/getusercount`)
     .then((result)=>setusercount(result.data))
   })
   useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/getproblemcount')
+    axios.get(`${apiUrl}/getproblemcount`)
     .then((result)=>setproblemcount(result.data))
   })
   useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/gettrackcount')
+    axios.get(`${apiUrl}/gettrackcount`)
     .then((result)=>settrackcount(result.data))
   })
   return (

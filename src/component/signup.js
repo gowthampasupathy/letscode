@@ -32,15 +32,16 @@ function App() {
   const[opacity,setopacity]=useState("")
   const[cursor,setcursor]=useState("pointer")
   const[btnval,setbtnval]=useState("SignUp")
+  const apiUrl = process.env.REACT_APP_API_URL;
  
  
   useEffect(()=>{
-    axios.get("https://lets-code-api.onrender.com/getprb")
+    axios.get(`${apiUrl}/getprb`)
     .then((pr)=>setproblem(pr.data))
     .catch((er)=>console.log(er))
   },[])
   useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/track')
+    axios.get(`${apiUrl}/track`)
     .then((result)=>settrack(result.data))
     .catch((err)=>console.log(err))
   },[])

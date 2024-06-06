@@ -20,17 +20,18 @@ function BasicExample() {
     const check=false;
     const count=0;
     const badgecount=0;
+    const apiUrl = process.env.REACT_APP_API_URL;
     const Submit=()=>{
-      axios.post("https://lets-code-api.onrender.com/addtrack",{title,description,imageurl,type,url,check,count,badgecount})
+      axios.post(`${apiUrl}/addtrack`,{title,description,imageurl,type,url,check,count,badgecount})
       .then((res)=>{console.log("added")})
     }
     useEffect(()=>{
-      axios.get('https://lets-code-api.onrender.com/track')
+      axios.get(`${apiUrl}/track`)
       .then((result)=>settrack(result.data))
       .catch((err)=>console.log(err))
     },[])
     const handledelete=(id)=>{
-      axios.delete("https://lets-code-api.onrender.com/deletetrack/"+id)
+      axios.delete(`${apiUrl}/deletetrack/`+id)
       .then((res)=>{
         console.log(res.data)
         window.location.reload()})

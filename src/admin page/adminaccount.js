@@ -34,22 +34,23 @@ function BasicExample() {
   const[space,setspace]=useState(" ")
   const[output,setoutput]=useState(" ")
   const[code,setcode]=useState(" ")
+  const apiUrl = process.env.REACT_APP_API_URL;
   
 
  
   useEffect(()=>{
-    axios.get("https://lets-code-api.onrender.com/getprb")
+    axios.get(`${apiUrl}/getprb`)
     .then((pr)=>setprb(pr.data))
     .catch((er)=>console.log(er))
   })
   useEffect(()=>{
-    axios.get("https://lets-code-api.onrender.com/cat")
+    axios.get(`${apiUrl}/cat`)
     .then((res)=>setcategory(res.data))
     .catch(errr=>console.log(errr))
    
   },[])
   const submit=()=>{
-    axios.post("https://lets-code-api.onrender.com/addproblem",{title,problemtitle,description,sampleinput,sampleoutput,explanation,diff,con,lvl,testcase,hiddentestcase})
+    axios.post(`${apiUrl}/addproblem`,{title,problemtitle,description,sampleinput,sampleoutput,explanation,diff,con,lvl,testcase,hiddentestcase})
     .then((res)=>console.log("problem added"))
     .catch((err)=>console.log(err))
   }
@@ -61,7 +62,7 @@ function BasicExample() {
 
   }
   const handledelete=(id)=>{
-    axios.delete("https://lets-code-api.onrender.com/deleteproblem/"+id)
+    axios.delete(`${apiUrl}/deleteproblem/`+id)
     .then((res)=>{
       console.log(res.data)
       window.location.reload()})

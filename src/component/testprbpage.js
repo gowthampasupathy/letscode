@@ -55,16 +55,16 @@ const Compiler = () => {
   const[solution,setsolution]=useState({})
   const[buttonval,setbuttonval]=useState([])
   const [loader,setloader]=useState(false)
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(()=>{
-    axios.get(`https://lets-code-api.onrender.com/getprbdetail/${id}/${prbid}`,)
+    axios.get(`${apiUrl}/getprbdetail/${id}/${prbid}`,)
     .then((res)=>{
       setVal(res.data)
     })
     .catch((er)=>console.log(er))
   },)
   useEffect(()=>{
-    axios.get(`https://lets-code-api.onrender.com/getprbtestcase/${id}/${prbid}`,)
+    axios.get(`${apiUrl}/getprbtestcase/${id}/${prbid}`,)
     .then((res)=>{
       settest(res.data)
       setloader(true)
@@ -72,7 +72,7 @@ const Compiler = () => {
     .catch((er)=>console.log(er))
   },[])
   useEffect(()=>{
-    axios.get(`https://lets-code-api.onrender.com/getprbhiddentestcase/${id}/${prbid}`,)
+    axios.get(`${apiUrl}/getprbhiddentestcase/${id}/${prbid}`,)
     .then((res)=>{
       sethiddentestcase(res.data)
     })
@@ -81,7 +81,7 @@ const Compiler = () => {
 
  useEffect(()=>{
   if(val.completion==1){
-    axios.get(`https://lets-code-api.onrender.com/getsolution/${id}/${prbid}`,)
+    axios.get(`${apiUrl}/getsolution/${id}/${prbid}`,)
   .then((res)=>{
     setsolution(res.data)
     setDrf(res.data.code)

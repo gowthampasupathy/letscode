@@ -68,15 +68,15 @@ const [input, setInput] = useState(localStorage.getItem("input") || "");
     outputText.innerHTML = "";
     outputText.innerHTML += "Creating Submission ...\n";
     try {
-      const response = await axios.post("http://172.16.100.31:8899/submissions", {
+      const response = await axios.post("https://rapidapi.com/judge0-official/api/judge0-ce/submissions", {
         source_code: input,
         stdin: userInput,
         language_id: languageId,
       }, {
         headers: {
-          // "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
-          // "x-rapidapi-key":
-          //   "c5a1c71df8mshb41a4da9e4c3c46p18b2fcjsn7cf2e291a23f", 
+          "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
+          "x-rapidapi-key":
+            "c5a1c71df8mshb41a4da9e4c3c46p18b2fcjsn7cf2e291a23f", 
           "content-type": "application/json",
           accept: "application/json",
         }
@@ -95,12 +95,12 @@ const [input, setInput] = useState(localStorage.getItem("input") || "");
         jsonGetSolution.compile_output == null) {
         outputText.innerHTML = `Creating Submission ... \nSubmission Created ...\nChecking Submission Status\nstatus : ${jsonGetSolution.status.description}`;
         if (jsonResponse.token) {
-          const url = `http://172.16.100.31:8899/submissions/${jsonResponse.token}?base64_encoded=true`;
+          const url = `https://rapidapi.com/judge0-official/api/judge0-ce/submissions/${jsonResponse.token}?base64_encoded=true`;
           const getSolution = await axios.get(url, {
             headers: {
-              // "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
-              // "x-rapidapi-key":
-              //   "c5a1c71df8mshb41a4da9e4c3c46p18b2fcjsn7cf2e291a23f", 
+              "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
+              "x-rapidapi-key":
+                "c5a1c71df8mshb41a4da9e4c3c46p18b2fcjsn7cf2e291a23f", 
               "content-type": "application/json",
             },
           });

@@ -15,6 +15,7 @@ function MyVerticallyCenteredModal(props) {
   const [oldemail, setOldEmail] = useState("");
   const [oldid, setOldId] = useState(""); // Update to store oldid
   const [reg, setReg] = useState([]);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     axios.get("https://lets-code-api.onrender.com/info/" + id)
@@ -30,7 +31,7 @@ function MyVerticallyCenteredModal(props) {
       .catch((err) => console.log(err));
 
  
-    axios.get("https://lets-code-api.onrender.com/getuserid/" + oldemail)
+    axios.get(`${apiUrl}getuserid/` + oldemail)
       .then((res) => {
         setReg(res.data);
         if (res.data.length > 0) {
@@ -41,7 +42,7 @@ function MyVerticallyCenteredModal(props) {
   }, [id, oldemail]); 
 
   const handlesubmit = () => {
-    axios.put(`https://lets-code-api.onrender.com/updateuserinfo/${id}/${oldid}` , { name, email, contact, college, country })
+    axios.put(`${apiUrl}/updateuserinfo/${id}/${oldid}` , { name, email, contact, college, country })
     .then((res) => {
       console.log(res.data);
       props.onHide()

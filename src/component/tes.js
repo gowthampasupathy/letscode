@@ -16,9 +16,10 @@ function BasicExample() {
   const [head,sethead]=useState([])
   const [prb,setprb]=useState([])
   const[enroll,setenroll]=useState(0)
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(()=>{
-    axios.get("https://lets-code-api.onrender.com/prb/"+title).
+    axios.get(`${apiUrl}/prb/`+title).
     then((res)=>{
       sethead(res.data)
     })
@@ -27,7 +28,7 @@ function BasicExample() {
 
    useEffect(()=>{
     setenroll(1)
-    axios.put(`https://lets-code-api.onrender.com/trackenrollment/${id}/${title}`,{enroll})
+    axios.put(`${apiUrl}/trackenrollment/${id}/${title}`,{enroll})
     .then((result)=>console.log(result.data))
     .catch((er)=>console.log(er))
    })

@@ -83,13 +83,14 @@ function BasicExample(props) {
   console.log(diff);
 
   const[prb,setprb]=useState([])
+  const apiUrl = process.env.REACT_APP_API_URL;
   // useEffect(()=>{
   //   axios.get("http://localhost:3001/problem/"+title)
   //   .then((res)=>setprb(res.data))
   //   .catch((er)=>console.log(er))
   // })
   useEffect(()=>{
-    axios.get("https://lets-code-api.onrender.com/info/"+id)
+    axios.get(`${apiUrl}/info/`+id)
     .then((res)=>{
       setinfo(res.data)
       const prblm=res.data.problem.filter(e=>e.title==title)

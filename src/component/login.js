@@ -15,13 +15,13 @@ function App() {
   const[opacity,setopacity]=useState("")
   const[cursor,setcursor]=useState("pointer")
   const[btnval,setbtnval]=useState("Login")
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   const Submit = (e) => {
     e.preventDefault();
     setcursor("not-allowed")
     setopacity(0.6)
     setbtnval("logging In Please Wait")
-    axios.post("https://lets-code-api.onrender.com/login", { email, password }, { withCredentials: true })
+    axios.post(`${apiUrl}/login`, { email, password }, { withCredentials: true })
       .then(res => {
         console.log(res.data)
         if (res.data.status === "Success") {

@@ -26,6 +26,7 @@ function BasicExample() {
   const prb=JSON.parse(localStorage.getItem("prb"))
   const [loader,setloader]=useState(false)
   const [loader1,setloader1]=useState()
+  const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(()=>{
     if(prb==null){
       setloader(false)
@@ -35,7 +36,7 @@ function BasicExample() {
   })
 
   useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/getinfo/'+email)
+    axios.get(`${apiUrl}/getinfo/`+email)
     .then((result)=>{
       setuserinfo(result.data)
      setid(userinfo[0]._id)
@@ -49,7 +50,7 @@ function BasicExample() {
     .catch((er)=>console.log(er))
   })
   useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/getgeneralprblm/'+id)
+    axios.get(`${apiUrl}/getgeneralprblm/`+id)
     .then((result)=>{
       setgeneralproblem(result.data)
       
@@ -58,13 +59,13 @@ function BasicExample() {
     .catch((er)=>console.log(er))
   })
   useEffect(()=>{
-    axios.get('https://lets-code-api.onrender.com/explore',{withCredentials:true})
+    axios.get(`${apiUrl}/explore`,{withCredentials:true})
     .then((result)=>{
         setemail(result.data.email)
     }).catch((err)=>console.log(err))
   },[])
   useEffect(()=>{
-    axios.get("https://lets-code-api.onrender.com/plan").
+    axios.get(`${apiUrl}/plan`).
     then((res)=>setplan(res.data))
     .catch(er=>console.log(er))
   })

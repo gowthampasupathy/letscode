@@ -16,8 +16,9 @@ import { useEffect } from "react";
 import axios from "axios";
 function BasicExample() {
   const[user,setuser]=useState([])
+  const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(()=>{
-    axios.get('http://localhost:3001/user')
+    axios.get(`${apiUrl}/user`)
     .then((uss)=>setuser(uss.data))
     .catch((err)=>console.log(err))
   })
