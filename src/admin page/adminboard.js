@@ -115,15 +115,13 @@ function BasicExample() {
         <Card style={{padding:30}} className="shadow-sm">
           <Table striped bordered hover>
             <thead>
-             <th>Title</th>
-             <th>Total Number Of problems</th>
+             <th>TITLE</th>
              <th></th>
             </thead>
             <tbody>
       {track.map((d, i) => (
         <tr  key={i} >
           <td>{d.title}</td>
-          <td>{i+10}</td>
           <td><Button variant="outline-dark" onClick={(e)=>handledelete(d._id)}>Delete</Button></td>
         </tr>
          ))}
