@@ -29,7 +29,7 @@ const Compiler = () => {
   const [collo, setCollo] = useState(['white', 'white', 'white']); 
   const [color, setColor] = useState(['black', 'black', 'black','black','black']); 
   const{id}=useParams();
-  const{_id}=useParams();
+  const{problemtitle}=useParams();
   const [prb, setprb] = useState([]);
   const detail={};
   const[test,settest]=useState([])
@@ -44,7 +44,7 @@ const Compiler = () => {
   const [det,setdet]=useState([])
    const[submitdetails,setsubmitdetails]=useState([])
    const [val, setVal] = useState({});
-  const prbid=_id;
+  const prbid=problemtitle;
   const [buttoncurser,setbuttoncurser]=useState("pointer")
   const [buttonopacity,setbuttonopacity]=useState(10)
   const[successscount,setsuccesscount]=useState(0)
@@ -60,6 +60,8 @@ const Compiler = () => {
     axios.get(`${apiUrl}/getprbdetail/${id}/${prbid}`,)
     .then((res)=>{
       setVal(res.data)
+
+      setloader(true)
     })
     .catch((er)=>console.log(er))
   },)
@@ -67,7 +69,7 @@ const Compiler = () => {
     axios.get(`${apiUrl}/getprbtestcase/${id}/${prbid}`,)
     .then((res)=>{
       settest(res.data)
-      setloader(true)
+      
     })
     .catch((er)=>console.log(er))
   },[])
@@ -98,6 +100,7 @@ const Compiler = () => {
   }
   
  })
+ console.log(val)
 
  useEffect(()=>{
   if(val.language=="all"){
