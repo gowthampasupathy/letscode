@@ -183,7 +183,7 @@ function BasicExample() {
               <tr key={i}>
                 <td>
                   <Link
-                    to={`${id}/solve/${d.problemtitle}`}
+                    to={`${id}/solve/${d._id}`}
                     style={{ textDecoration: "none", color: "black" }}
                     className="name"
                   >

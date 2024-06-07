@@ -29,7 +29,7 @@ const Compiler = () => {
   const [collo, setCollo] = useState(['white', 'white', 'white']); 
   const [color, setColor] = useState(['black', 'black', 'black','black','black']); 
   const{id}=useParams();
-  const{problemtitle}=useParams();
+  const{_id}=useParams();
   const [prb, setprb] = useState([]);
   const detail={};
   const[test,settest]=useState([])
@@ -44,7 +44,7 @@ const Compiler = () => {
   const [det,setdet]=useState([])
    const[submitdetails,setsubmitdetails]=useState([])
    const [val, setVal] = useState({});
-  const prbid=problemtitle;
+  const prbid=_id;
   const [buttoncurser,setbuttoncurser]=useState("pointer")
   const [buttonopacity,setbuttonopacity]=useState(10)
   const[successscount,setsuccesscount]=useState(0)
@@ -102,9 +102,11 @@ const Compiler = () => {
  useEffect(()=>{
   if(val.language=="all"){
     setbuttonval(lan)
+    console.log(val.title)
   }else{
     const button=lan.filter((d)=>d.name==val.language);
   setbuttonval(button)
+  console.log(val.title)
   button.map((d)=>{
     setDrf(d.def)
     setLang(d.name)

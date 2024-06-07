@@ -80,7 +80,6 @@ function BasicExample(props) {
   const handleconChange = (event) => {
     setcon(event.target.value);
   };
-  console.log(diff);
 
   const[prb,setprb]=useState([])
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -98,7 +97,7 @@ function BasicExample(props) {
       setloader(true)
     })
     .catch((er)=>console.log(er))
-  })
+  },[apiUrl, id, title])
   const filteredCards = prb.filter((card) => {
     return (
       (diff === "all" || card.diff === diff) &&
