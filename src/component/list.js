@@ -38,7 +38,7 @@ const List = ({ problemtitle, diff, con,_id,completion,id,}) => {
           <p>Concept: {con}</p>
         </Col>
         <Col xs={12} md={2}>
-          <Link to={`/Exp/${id}/solve/${problemtitle}`} >
+          <Link to={`/Exp/${id}/solve/${_id}`} >
           <Button
             style={{
               backgroundColor: dcolor,
