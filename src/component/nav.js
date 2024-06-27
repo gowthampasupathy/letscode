@@ -36,7 +36,7 @@ function BasicExample(props) {
                 to="/Exp"
                 style={{
                   marginLeft: 20,
-                  fontFamily: "initial",
+                  fontFamily: "monospace",
                   textDecoration: "none",
                   color: "black",
                 }}
@@ -48,7 +48,7 @@ function BasicExample(props) {
                 to="/Problem"
                 style={{
                   marginLeft: 20,
-                  fontFamily: "initial",
+                  fontFamily: "monospace",
                   textDecoration: "none",
                   color: "black",
                 }}
@@ -60,7 +60,7 @@ function BasicExample(props) {
                 to="/Compiler"
                 style={{
                   marginLeft: 20,
-                  fontFamily: "initial",
+                  fontFamily: "monospace",
                   textDecoration: "none",
                   color: "black",
                 }}
@@ -72,7 +72,7 @@ function BasicExample(props) {
                 to={"/Account/"+id}
                 style={{
                   marginLeft: 20,
-                  fontFamily: "initial",
+                  fontFamily: "monospace",
                   textDecoration: "none",
                   color: "black",
                 }}

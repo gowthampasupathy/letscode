@@ -64,7 +64,7 @@ const Compiler = () => {
       setloader(true)
     })
     .catch((er)=>console.log(er))
-  },)
+  },{})
   useEffect(()=>{
     axios.get(`${apiUrl}/getprbtestcase/${id}/${prbid}`,)
     .then((res)=>{
@@ -86,22 +86,24 @@ const Compiler = () => {
     axios.get(`${apiUrl}/getsolution/${id}/${prbid}`,)
   .then((res)=>{
     setsolution(res.data)
-    setDrf(res.data.code)
+    console.log(res.data)
+ 
     // setsubmission(val.solutions)
   })
   .catch((er)=>console.log(er))
   }
 
- })
+ },{})
+
  useEffect(()=>{
   if(val.completion==1){
     setsubmission(val.solutions)
+
     
   }
   
- })
- console.log(val)
-
+ },[])
+console.log(solution)
  useEffect(()=>{
   if(val.language=="all"){
     setbuttonval(lan)
@@ -116,7 +118,8 @@ const Compiler = () => {
   })
   
   }
- })
+ },[])
+
 
   const handleadd=( timecom,spacecom,status,output,input,lang,expeactedoutput)=>{
     setsubmitdetails(prevState => [
@@ -396,7 +399,7 @@ const Compiler = () => {
   const handleStore=()=>{
     if(correctcount+successscount==8){
       const complete=1;
-      axios.put(`https://lets-code-api.onrender.com/updatesolution/${id}/${prbid}`,{submitdetails,complete})
+      axios.put(`${apiUrl}/updatesolution/${id}/${prbid}`,{submitdetails,complete})
       .then((res)=>{console.log(res.data)
         setbuttondisplay("none")})
       .catch((er)=>console.log(er))

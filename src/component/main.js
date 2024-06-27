@@ -33,11 +33,10 @@ function BasicExample() {
     .catch((er)=>console.log(er))
   })
   window.onload = function() {
-    //considering there aren't any hashes in the urls already
     if(!window.location.hash) {
-        //setting window location
+        
         window.location = window.location + '#loaded';
-        //using reload() method to reload web page
+        
         window.location.reload();
     }
 }
@@ -90,7 +89,7 @@ function BasicExample() {
     <h1>LetsCode Explore </h1>
     </Container>
     <Container>
-        <h3 style={{marginTop:50}}>Available Languages</h3>
+        <h3 style={{marginTop:50}}>Available Tracks</h3>
     </Container>
     <Container>
         <Row className="flex-wrap" xs={12} md={4} style={{marginTop:50}}
@@ -105,7 +104,8 @@ function BasicExample() {
         margin: 5,
         boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
         borderWidth: 1,
-        borderColor: 'black'
+        borderColor: 'black',
+        backgroundColor:'#F6F5F2'
       }}>
         <Card.Img variant="top" src={trk.imageurl} style={{height:200,width:200,margin:'auto'}} />
         <Card.Body >
