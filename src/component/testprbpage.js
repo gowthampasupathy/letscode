@@ -60,7 +60,7 @@ const Compiler = () => {
     axios.get(`${apiUrl}/getprbdetail/${id}/${prbid}`,)
     .then((res)=>{
       setVal(res.data)
-
+      console.log(res.data)
       setloader(true)
     })
     .catch((er)=>console.log(er))
@@ -81,19 +81,20 @@ const Compiler = () => {
     .catch((er)=>console.log(er))
   },[])
 
- useEffect(()=>{
-  if(val.completion==1){
-    axios.get(`${apiUrl}/getsolution/${id}/${prbid}`,)
-  .then((res)=>{
-    setsolution(res.data)
-    console.log(res.data)
+//  useEffect(()=>{
+//   if(val.completion==1){
+//     axios.get(`${apiUrl}/getsolution/${id}/${prbid}`,)
+//   .then((res)=>{
+//     setsolution(res.data)
+//     console.log(res.data)
  
-    // setsubmission(val.solutions)
-  })
-  .catch((er)=>console.log(er))
-  }
+//     // setsubmission(val.solutions)
+//   })
+//   .catch((er)=>console.log(er))
+//   }
 
- },{})
+//  })
+
 
  useEffect(()=>{
   if(val.completion==1){
@@ -102,12 +103,10 @@ const Compiler = () => {
     
   }
   
- },[])
-console.log(solution)
+ })
  useEffect(()=>{
   if(val.language=="all"){
     setbuttonval(lan)
-    console.log(val.title)
   }else{
     const button=lan.filter((d)=>d.name==val.language);
   setbuttonval(button)
@@ -118,7 +117,7 @@ console.log(solution)
   })
   
   }
- },[])
+ })
 
 
   const handleadd=( timecom,spacecom,status,output,input,lang,expeactedoutput)=>{
@@ -412,6 +411,7 @@ console.log(solution)
    }
 
 
+console.log(val.solutions)
 
 
 
@@ -444,7 +444,7 @@ console.log(solution)
                   <h5>Sample Output</h5>
                   <p style={{ fontWeight: "bold" }}>{val.sampleoutput}</p>
                   <h5>Explanation</h5>
-                  <p>{val.explanation}</p>
+                  <p>{val.explanation}</p> 
                 </div>
                 
             }
