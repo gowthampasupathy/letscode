@@ -78,6 +78,7 @@ function App() {
       setvalidate(true)
     }
   }
+  //#
   const change=()=>{
     setcursor("not-allowed")
     setopacity(0.6)
@@ -85,7 +86,7 @@ function App() {
     Submit()
   }
   const checkemail=(email)=>{
-    axios.post("https://lets-code-api.onrender.com/getemail",{email})
+    axios.post(`${apiUrl}/getemail`,{email})
     .then((res)=>{
       if(res.data==="yes"){
         setemailerror("Email Already Exist")
@@ -97,8 +98,8 @@ function App() {
     .catch((er)=>console.log(er))
   }
   const Submit =()=>{
-    const url1=axios.post("https://lets-code-api.onrender.com/register",{name,email,password},{withCredentials:true})
-    const url2=axios.post("https://lets-code-api.onrender.com/user",{name,email,country,contact,college,total,easy,medium,hard,problem,track})
+    const url1=axios.post(`${apiUrl}/register`,{name,email,password},{withCredentials:true})
+    const url2=axios.post(`${apiUrl}/user`,{name,email,country,contact,college,total,easy,medium,hard,problem,track})
     //const url2=axios.post("http://localhost:3001/type",{email,track},{withCredentials:true})
     Promise.all([url1,url2])
     .then((res)=>{
